@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Bahler Lab</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="../css/other.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-23429289-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+<body>
+<div id="header">
+<div style="text-align:left; margin-left:70px; margin-bottom:0px; margin-top:0px;"><span style="text-shadow:#FFF; font-family:'Arial Black', Gadget, sans-serif; font-size:32pt; color:#EBF1DE; ">b&auml;hler</span><span style="text-shadow:auto; font-family:'Arial Black', Gadget, sans-serif; font-size:32pt; color:#77933C; ">lab&#13;</span></div>
+  <div style="text-align:left; margin-left:30px; margin-top:0px;"><span style="font-family:'Arial Black', Gadget, sans-serif; font-size:20pt; color:#4F6228; "> Genome Regulation</span></div>
+  <div class="O">
+  <div style="text-align:center; margin-bottom:0; margin-top:-65px; margin-left:120px;margin-right:-20px;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:85pt; color:#D7E4BD; "><strong><em>yogy&#13;</em></strong></span></div>
+<div style="text-align:right; margin-bottom:0px; margin-top:-137px; margin-left:150px;"><span style="font-family:'Arial Black', Helvetica, sans-serif; font-size:36pt; color:white; ">
+<img src="/images/uclogo.gif";/></span></div>
+  
+<div></div>
+</div>
+
+
+</div>
+<!-- end header -->
+<div id="page">
+<div id="sidebar">
+                <div id="menu">
+                        <ul>
+                                <li ><a href="../index.html" title="">Home</a></li>
+                                <li><a href="../people" title="">People</a></li>
+                                <li><a href="../research.htm" title="">Research</a></li>
+                                <li><a href="../publications" title="">Publications</a></li>
+                                <li class="active first"><a href="../resources" title="">Resources</a></li>
+
+                                <li ><a href="../contact.htm" title="">Contact</a></li>
+                        </ul>
+                </div>
+
+
+        </div>
+
+         <div id="content">
+                <div class="feature bg7">
+ 
+
+        </div>
+
+
+
+		<div class="content" >
+<br /> <br />
+<table class="violet2" width="100%"><tr><td>
+YOGY is a web-based resource for retrieving orthologous proteins from ten eukaryotic organisms and one prokaryote:
+
+<em>Homo sapiens, Mus musculus, Rattus norvegicus, Arabidopsis thaliana,
+Dictyostelium discoideum, Drosophila melanogaster, Caenorhabditis elegans,
+Plasmodium falciparum, Escherichia coli, Schizosaccharomyces pombe,
+and Saccharomyces cerevisiae</em>.
+
+Using a gene or protein identifier from any of these organisms as a query, this
+database provides comprehensive, combined information on orthologs in other species
+using data from five independent resources: KOGs, Inparanoid, Homologene, OrthoMCL,
+and a table of curated orthologs between budding yeast and fission yeast.
+
+<br /><br />
+Associated Gene Ontology (GO) terms of orthologs can also be retrieved for functional
+inference.
+
+<br />
+<a href="help.shtml">Help page</a>
+
+<br /><br />
+To cite YOGY and for further details see: <br />
+<p>
+<font size="2">
+
+Penkett CJ, Morris JA, Wood V, and B&#228;hler J (2006).
+YOGY: a web-based, integrated database to retrieve protein orthologs and associated Gene Ontology terms.<br />
+
+<i>Nucleic Acids Res.</i> 34:W330-334.<br />
+</font>
+</p>
+<!--  <!--#set var="pubmed_ids" value="16845020" -->
+<!--#set var="pubmed_tabulate" value="yes" -->
+<!--#include virtual="/shared/pubmedalizer" -->
+-->
+<p><b>
+A <b><a href="../docs/YOGY_W330.pdf">reprint</a></b> is available (PDF format) as well as the
+<b><a href="../docs/YOGY_SI_new.doc">Supplementary Information</a></b> (Word document).
+</p>
+
+</td>
+<td><img src="../gfx/Yogi.jpg" alight=right>
+ </td>
+</tr></table>
+
+</p>
+
+<form method="post" action="/cgi-bin/YOGY/yogy.pl" enctype="multipart/form-data">
+
+<p><b>Search for gene by ID or name</b>:
+<input type="text" name="gene" tabindex="1"  size="30" maxlength="100" /></p>
+
+<p><b>Query species</b>:
+<select name="species" tabindex="2" size="1">
+
+<option value="A._thaliana">A. thaliana</option>
+<option value="C._elegans">C. elegans</option>
+<option value="D._discoideum">D. discoideum</option>
+<option value="D._melanogaster">D. melanogaster</option>
+<option value="E._coli">E. coli</option>
+<option value="H._sapiens">H. sapiens</option>
+<option value="M._musculus">M. musculus</option>
+<option value="P._falciparum">P. falciparum</option>
+<option value="R._norvegicus">R. norvegicus</option>
+<option value="S._cerevisiae">S. cerevisiae</option>
+<option selected="selected" value="S._pombe">S. pombe</option>
+
+</select></p>
+
+<p><b>Include wild-cards</b>: &nbsp;&nbsp;
+<label><input type="radio" name="wild" value="Yes" tabindex="3" />Yes</label>
+<label><input type="radio" name="wild" value="No" checked="checked" tabindex="4" />No</label></p>
+
+<p><b>Search for GO info</b>:  &nbsp;
+<label><input type="radio" name="go_term" value="Yes" tabindex="5" />Yes</label>
+<label><input type="radio" name="go_term" value="No" checked="checked" tabindex="6" />No</label></p>
+
+<p><b>GO info in one table</b>:
+<label><input type="radio" name="go_final" value="Yes"  tabindex="5" />Yes</label>
+<label><input type="radio" name="go_final" value="No" checked="checked" tabindex="6" />No</label></p>
+
+<p><input type="submit" tabindex="7" name="Find orthologs" value="Find orthologs" />
+
+<input type="submit" name=".defaults" tabindex="8" value="Reset" /></p>
+
+<div>
+<input type="hidden" name=".cgifields" value="species"  />
+<input type="hidden" name=".cgifields" value="wild"  />
+<input type="hidden" name=".cgifields" value="go_term"  />
+<input type="hidden" name=".cgifields" value="go_final"  />
+</div>
+
+</form>
+
+
+
+
+
+ </div>
+
+
+
+                <div class="box" style="padding-left: 19px;">
+
+
+                </div>
+        </div>
+
+        <div style="clear: both;">&nbsp;</div>
+</div>
+
+
+</body>
+</html>
+                                                  
+
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+WEB_NAME="YOGY"
+CGI_PATH=/var/www/bgi-bin/$WEB_NAME
+WEB_PATH=/var/www/bahlerweb/$WEB_NAME
+
+function mknew {
+if [ -d $1 ] 
+then
+    rm -rf $1
+fi
+mkdir $1
+}
+
+
+cp -rf script/* $CGI_PATH/
+cp -rf web/* $WEB_PATH/
+
+

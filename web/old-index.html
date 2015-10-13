@@ -1,0 +1,91 @@
+<!--#include virtual="/perl/header" -->
+<h1>YOGY: eukarYotic OrtholoGY</h1>
+
+<h5>Introduction</h5>
+
+
+<table class="violet2" width="85%"><tr><td>
+YOGY is a web-based resource for retrieving orthologous proteins from ten eukaryotic organisms and one prokaryote: 
+
+<em>Homo sapiens, Mus musculus, Rattus norvegicus, Arabidopsis thaliana, 
+Dictyostelium discoideum, Drosophila melanogaster, Caenorhabditis elegans, 
+Plasmodium falciparum, Escherichia coli, Schizosaccharomyces pombe, 
+and Saccharomyces cerevisiae</em>.
+
+Using a gene or protein identifier from any of these organisms as a query, this 
+database provides comprehensive, combined information on orthologs in other species 
+using data from five independent resources: KOGs, Inparanoid, Homologene, OrthoMCL, 
+and a table of curated orthologs between budding yeast and fission yeast.
+
+<br /><br />
+Associated Gene Ontology (GO) terms of orthologs can also be retrieved for functional 
+inference.
+
+<br />
+<a href="help.shtml">Help page</a>
+
+<br /><br />
+To cite YOGY and for further details see: <br />
+
+<!--#set var="pubmed_ids" value="16845020" -->
+<!--#set var="pubmed_tabulate" value="yes" -->
+<!--#include virtual="/shared/pubmedalizer" -->
+
+<p><b>
+A <b><a href="../docs/YOGY_W330.pdf">reprint</a></b> is available (PDF format) as well as the 
+<b><a href="../docs/YOGY_SI_new.doc">Supplementary Information</a></b> (Word document).
+</p>
+
+</td></tr></table>
+
+</p>
+
+<form method="post" action="/cgi-bin/YOGY/yogy-search.pl" enctype="multipart/form-data">
+
+<p><b>Search for gene by ID or name</b>:  
+<input type="text" name="gene" tabindex="1"  size="30" maxlength="100" /></p>
+
+<p><b>Query species</b>:  
+<select name="species" tabindex="2" size="1">
+
+<option value="A._thaliana">A. thaliana</option>
+<option value="C._elegans">C. elegans</option>
+<option value="D._discoideum">D. discoideum</option>
+<option value="D._melanogaster">D. melanogaster</option>
+<option value="E._coli">E. coli</option>
+<option value="H._sapiens">H. sapiens</option>
+<option value="M._musculus">M. musculus</option>
+<option value="P._falciparum">P. falciparum</option>
+<option value="R._norvegicus">R. norvegicus</option>
+<option value="S._cerevisiae">S. cerevisiae</option>
+<option selected="selected" value="S._pombe">S. pombe</option>
+
+</select></p>
+
+<p><b>Include wild-cards</b>: &nbsp;&nbsp;
+<label><input type="radio" name="wild" value="Yes" tabindex="3" />Yes</label> 
+<label><input type="radio" name="wild" value="No" checked="checked" tabindex="4" />No</label></p>
+
+<p><b>Search for GO info</b>:  &nbsp;
+<label><input type="radio" name="go_term" value="Yes" tabindex="5" />Yes</label> 
+<label><input type="radio" name="go_term" value="No" checked="checked" tabindex="6" />No</label></p>
+
+<p><b>GO info in one table</b>: 
+<label><input type="radio" name="go_final" value="Yes" checked="checked" tabindex="5" />Yes</label> 
+<label><input type="radio" name="go_final" value="No" tabindex="6" />No</label></p>
+
+<p><input type="submit" tabindex="7" name="Find orthologs" value="Find orthologs" /> 
+
+<input type="submit" name=".defaults" tabindex="8" value="Reset" /></p>
+
+<div>
+<input type="hidden" name=".cgifields" value="species"  />
+<input type="hidden" name=".cgifields" value="wild"  />
+<input type="hidden" name=".cgifields" value="go_term"  />
+<input type="hidden" name=".cgifields" value="go_final"  />
+</div>
+
+</form>
+
+<!--#include virtual="/perl/footer"-->
+

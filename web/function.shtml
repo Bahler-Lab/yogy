@@ -1,0 +1,189 @@
+<!--#include virtual="/perl/header" -->
+
+<HEAD>
+</HEAD>
+
+<BODY>
+
+<br />
+<p><table class="violet3" width="100%"><tr align="center"><td>
+
+<h2>YOGY:</h2>
+
+<h3>eukarYotic OrtholoGY</h3>
+
+</td></tr></table>
+
+</p>
+
+<p>
+
+<h3>One-Letter Functional Classification Explained</h3>
+<br>
+
+
+
+<table border="0" align="left">
+<tr>
+	<th><h4>One-Letter Code</h4></th>
+	<th><h4>Functional Classification</h4></th>
+
+<tr><td></td></tr>
+
+<tr>
+	<th>INFORMATION STORAGE AND PROCESSING</th>
+</tr>
+
+<tr bgcolor=#fcccfc>
+	<td align="middle"> J </td>
+	<td>Translation, ribosomal structure and biogenesis </td>
+</tr>
+
+<tr bgcolor=#fcdcfc>
+	<td align="middle"> A </td>
+	<td>RNA processing and modification </td>
+</tr>
+
+<tr bgcolor=#fcdcec>
+	<td align="middle"> K</td>
+	<td> Transcription </td>
+</tr>
+
+<tr bgcolor=#fcdcdc>
+	<td align="middle"> L</td>
+	<td> Replication, recombination and repair </td>
+</tr>
+
+<tr bgcolor=#fcdccc>
+	<td align="middle"> B</td>
+	<td> Chromatin structure and dynamics </td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+	<th>CELLULAR PROCESSES AND SIGNALING</th>
+</tr>
+
+<tr bgcolor=#fcfcdc>
+ 	<td align="middle">D </td>
+ 	<td>Cell cycle control, cell division, chromosome partitioning </td>
+</tr>
+
+<tr bgcolor=#fcfccc>
+ 	<td align="middle">Y </td>
+ 	<td>Nuclear structure </td>
+</tr>
+ 
+ <tr bgcolor=#fcfcbc>
+ 	<td align="middle">V </td>
+ 	<td>Defense mechanisms </td>
+ </tr>
+ 
+ <tr bgcolor=#fcfcac>
+ 	<td align="middle"> T </td>
+ 	<td>Signal transduction mechanisms </td>
+ </tr>
+ 
+ <tr bgcolor=#ecfcac>
+ 	<td align="middle">M </td>
+ 	<td>Cell wall/membrane/envelope biogenesis </td>
+ </tr>
+ 
+ <tr bgcolor=#dcfcac>
+ 	<td align="middle">N </td>
+ 	<td>Cell motility </td>
+ </tr>
+ 
+ <tr bgcolor=#ccfcac>
+ 	<td align="middle">Z </td>
+ 	<td>Cytoskeleton </td>
+ </tr>
+ 
+ <tr bgcolor=#bcfcac>
+ 	<td align="middle">W </td>
+ 	<td>Extracellular structures</td> 
+ </tr>
+ 
+ <tr bgcolor=#acfcac>
+ 	<td align="middle">U </td>
+ 	<td>Intracellular trafficking, secretion, and vesicular transport </td>
+ </tr>
+ 
+ <tr bgcolor=#9cfcac>
+ 	<td align="middle">O </td>
+ 	<td>Posttranslational modification, protein turnover, chaperones  </td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+	<th>METABOLISM</th>
+</tr>
+
+<tr bgcolor=#bcfcfc>
+	 <td align="middle">C</td>
+ 	<td> Energy production and conversion </td>
+ </tr>
+ 
+ <tr bgcolor=#ccfcfc>
+ 	<td align="middle">G</td>
+ 	<td> Carbohydrate transport and metabolism </td>
+ </tr>
+ 
+ <tr bgcolor=#dcfcfc>
+ 	<td align="middle">E</td>
+  	<td>Amino acid transport and metabolism </td>
+ </tr>
+ 
+ <tr bgcolor=#dcecfc>
+ 	<td align="middle">F</td>
+ 	<td> Nucleotide transport and metabolism</td> 
+ </tr>
+ 
+ <tr bgcolor=#dcdcfc>
+ 	<td align="middle">H</td>
+  	<td>Coenzyme transport and metabolism </td>
+ </tr>
+ 
+ <tr bgcolor=#dcccfc>
+ 	<td align="middle">I</td>
+  	<td>Lipid transport and metabolism </td>
+ </tr>
+ 
+ <tr bgcolor=#ccccfc>
+ 	<td align="middle">P</td>
+  	<td>Inorganic ion transport and metabolism </td>
+ </tr>
+ 
+ <tr bgcolor=#bcccfc>
+ 	<td align="middle">Q</td>
+  	<td>Secondary metabolites biosynthesis, transport and catabolism </td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+	<th>POORLY CHARACTERIZED</th>
+</tr>
+
+<tr bgcolor=#e0e0e0>
+ 	<td align="middle">R</td>
+	<td>General function prediction only</td>
+</tr> 
+ 
+ <tr bgcolor=#cccccc >
+ 	<td align="middle">S</td>
+ 	<td> Function unknown</td>
+ </tr>
+ 
+ 
+</table>
+
+<br /><br />
+
+</BODY>
+</HTML>
+
+<!--#include virtual="/perl/footer"-->
+

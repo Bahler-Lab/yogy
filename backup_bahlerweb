@@ -1,0 +1,27 @@
+#!/bin/bash
+
+user=yogyrw
+pass=yogyex
+
+backtime=$(date +%y%m%d_%Hh%M%S)
+tempdir=yogy_database_$backtime
+destdir=/backup/YOGY
+
+if [ ! -d $destdir ]; then
+   mkdir $destdir
+fi
+
+backfiles=($(ls $destdir))
+
+# remove the oldest backup
+if [ ${#backfiles[@]} -gt 5 ]; then
+    rm -r $destdir/${backfiles[0]}
+fi
+
+mkdir $tempdir
+for(( i=2; i<=4; i++ )){
+    mysqldump -u $user -p$pass  S_pombe_YOGY_$i > $tempdir/S_pombe_YOGY_$i.sql
+}
+
+tar -czf $destdir/YOGY_$backtime.tar.gz $tempdir
+rm -r $tempdir

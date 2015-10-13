@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Bahler Lab</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="../css/other.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="header">
+<div style="text-align:left; margin-left:70px; margin-bottom:0px; margin-top:0px;"><span style="text-shadow:#FFF; font-family:'Arial Black', Gadget, sans-serif; font-size:32pt; color:#EBF1DE; ">b&auml;hler</span><span style="text-shadow:auto; font-family:'Arial Black', Gadget, sans-serif; font-size:32pt; color:#77933C; ">lab&#13;</span></div>
+  <div style="text-align:left; margin-left:30px; margin-top:0px;"><span style="font-family:'Arial Black', Gadget, sans-serif; font-size:20pt; color:#4F6228; "> Genome Regulation</span></div>
+  <div class="O">
+  <div style="text-align:center; margin-bottom:0; margin-top:-65px; margin-left:120px;margin-right:-20px;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:85pt; color:#D7E4BD; "><strong><em>yogy&#13;</em></strong></span></div>
+<div style="text-align:right; margin-bottom:0; margin-top:-78px; margin-left:150px;margin-right:20px;"><span style="font-family:'Arial Black', Helvetica, sans-serif; font-size:36pt; color:white; ">UCL</span></div>
+  <div></div>
+</div>
+
+
+</div>
+<!-- end header -->
+<div id="page">
+<div id="sidebar">
+                <div id="menu">
+                        <ul>
+                                <li ><a href="../index.html" title="">Home</a></li>
+                                <li><a href="../people" title="">People</a></li>
+                                <li><a href="../research.htm" title="">Research</a></li>
+                                <li><a href="../publications" title="">Publications</a></li>
+                                <li class="active first"><a href="../resources" title="">Resources</a></li>
+
+                                <li ><a href="../contact.htm" title="">Contact</a></li>
+                        </ul>
+                </div>
+
+
+        </div>
+
+         <div id="content">
+                <div class="feature bg7">
+        </div>
+
+
+
+                <div class="content" >
+<br /> <br />
+
+<br />
+<p><table class="violet3" width="100%"><tr align="center"><td>
+
+
+</td></tr></table>
+
+</p>
+
+<p>
+<h4>Help</h4>
+
+<br />
+<table class="violet2" width="85%"><tr><td>
+
+<p>
+Genes and proteins from the following ten organisms can be searched using gene names 
+or systematic identifiers from the corresponding Model Organism Database (MOD), Ensembl, 
+NCBI or UniProt: 
+<em>H. sapiens, M. musculus, R. norvegicus, A. thaliana, C. elegans, D. discoideum, 
+D. melanogaster, P. falciparum, E. coli, S. pombe, and S. cerevisiae</em>.  
+It is possible to search with identifiers and names from 
+<a href="http://www.informatics.jax.org/">MGI</a> for mouse, 
+<a href="http://rgd.mcw.edu/">RGD</a> for rat, 
+<a href="http://www.arabidopsis.org/">TAIR</a> for Arabidopsis, 
+<a href="http://flybase.bio.indiana.edu/">FlyBase</a> for fly, 
+<a href="http://www.wormbase.org/">WormBase</a> for worm, 
+<a href="http://dictybase.org/">dictyBase</a> for Dictyostelium, 
+<a href="http://www.genedb.org/genedb/malaria/index.jsp">GeneDB</a> for Plasmodium, 
+<a href="http://ecogene.org/index.php">EcoGene</a> for <em>E.coli</em>,
+<a href="http://www.genedb.org/genedb/pombe/index.jsp">GeneDB</a> for <em>S. pombe</em>, 
+and <a href="http://www.yeastgenome.org/">SGD</a> for <em>S. cerevisiae</em>.  
+For mouse MGI identifiers please prefix the number with "MGI:", and for rat RGD 
+identifiers, prefix the number with "RGD:".  For human, mouse and rat, it is also 
+possible to search with 
+<a href="http://www.ensembl.org/">Ensembl</a> protein IDs.  Some other identifiers 
+also work when searching for organisms including 
+<a href="http://www.ebi.uniprot.org/index.shtml">UniProt</a> accession numbers and 
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Protein">NCBI protein GI</a> 
+identifiers.  For NCBI GI identifiers, please prefix the number with "GI:".  However, 
+some of the searches may be limited by the quality of links to these databases from 
+the relevant model organism database.  GO information comes from the 
+<a href="http://www.geneontology.org/">Gene Ontology</a> home page.
+</p>
+<p>
+YOGY is implemented in a MySQL relational database running on a UNIX server.  Data for 
+the external resources have been downloaded from the associated FTP and websites for 
+import into this database.  The data model has been validated to identify and remove 
+potential problems such as many-to-many relationships.  It uses perl scripts together 
+with the perl DBI module for file import.  For queries, we have designed a web interface 
+using the CGI module of perl, hosted on an Apache server.  The perl GD graphics module 
+is used for bar charts.
+</p>
+<p>
+Genes and proteins from the above nine organisms can be searched using gene names 
+or systematic identifiers reported in the databases indicated above.  Where 
+possible, identifiers from the same MOD are shown throughout the output so that proteins 
+from the five data sources can be checked for consistency; this is useful as the 
+different homology resources use identifiers from a variety of databases.  Because of 
+the ambiguity of many identifiers, legacy naming systems and revisions to gene structures 
+and gene complements, it is not always possible to be certain whether some apparent 
+differences in orthology calls are, in fact, equivalent proteins.  Whilst we have made 
+every effort to map these identifiers automatically using resources from the MOD, the 
+<a href="http://www.ebi.ac.uk/IPI/IPIhelp.html">International Protein Index</a>, 
+<a href="http://www.ebi.uniprot.org/index.shtml">UniProt</a>, and the 
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=gene">NCBI Gene database</a>,
+any discrepancies should be checked manually by the user.  It is possible to use incomplete 
+names with a wild-card option, providing a list of genes and one-line descriptions for 
+further search.
+</p>
+<p>
+GO terms annotated to the identified orthologs can also be retrieved. Only associations using 
+experimental and curator validated evidence codes are included.  The option to show GO terms 
+is switched off by default due to the increased time required to download GO data.  Options are 
+provided to display GO terms in separate tables at the end of each resource, or in a single 
+table at the end of the output.
+</p>
+<p>
+The output is provided in tabulated HTML format.  The first table contains general 
+information for the protein of interest including description and links to the 
+corresponding MOD and the UniProt database, if this accession number is available.  
+For <em>S. pombe</em>, links to gene expression profiles during 
+the cell cycle (C), meiotic differentiation (M), and stress conditions (S) are also 
+provided.  The data sources which provide positive orthology results for the gene of 
+interest are then specified with links to the corresponding outputs.
+</p>
+<p>
+The orthology results are presented in a standard output format for each dataset.  At 
+the top is information about the query protein cluster(s), followed by a list of 
+available orthologs ordered by organism together with links to the original databases.  
+Links to UniProt are also provided if the accession number is available.  Below, each 
+data source is mentioned in the order given in the output page.
+</p>
+<p>
+For <a href="http://www.ncbi.nlm.nih.gov/COG/new/">KOGs</a>, the summary table starts 
+with the unique KOG name together with a link to the website.  The next column displays 
+a bar chart of the ortholog numbers for each organism, revealing the phylogenetic pattern 
+for the KOGs.  This chart also provides a link to a list of other KOGs that share the 
+same phylogenetic pattern, which may help to understand how the protein has been 
+conserved through evolution.  The summary table also indicates the functional 
+classification, with a link to other KOGs in this classification, and a one-line 
+description for the KOG.  The orthologs are displayed in a list below the summary table, 
+together with links for each protein or domain to the corresponding KOG cluster 
+alignments and to the relevant protein page at NCBI.
+</p>
+<p>
+For <a href="http://inparanoid.sbc.su.se/">Inparanoid</a>, we excluded orthologs from 
+largely unannotated organisms, which are not 
+in the other homology resources; this reduces the output page to 18 organisms (20 
+databases as both mouse and rat are include two datasets).  The bar 
+chart on top shows the phylogenetic pattern for the orthologs.  The list underneath shows 
+the orthologs for the query protein, links to the Inparanoid protein clusters for each 
+organism, the Inparanoid score, and a link to the protein page in the corresponding MOD.  
+Inparanoid uses a sophisticated methodology to distinguish between in- and out-paralogs; 
+we have downloaded the tables from the Inparanoid website and present these 
+pre-calculated datasets on the YOGY website.
+</p>
+<p>
+For <a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?DB=homologene">Homologene</a>, 
+the summary at the top provides a link to the query protein cluster at NCBI.  Each 
+ortholog is then presented by organism with links to the relevant NCBI pages
+</p>
+<p>
+For <a href="http://orthomcl.cbil.upenn.edu/">OrthoMCL</a>, we have again excluded 
+orthologs from largely unannotated organisms and prokaryotes (except 
+<em>Escherichia coli</em>, which is also included in Inparanoid) reducing the output 
+to 24 organisms.  The summary table includes a link to the OrthoMCL cluster and a 
+phylogenetic bar chart.  This table is followed by a list of orthologs in the cluster 
+with a link to the original protein sequence used for clustering and a link to the 
+relevant MOD.  For some of the less well characterised yeasts, which have no MOD, 
+a link is provided to either the 
+<a href="http://wolfe.gen.tcd.ie/ygob/">"Yeast Gene Order Browser"</a> or 
+<a href="http://cbi.labri.fr/Genolevures/">G&#233;nolevures</a> that both provide 
+graphical representations of conserved genome location.
+</p>
+<p>
+For the <a href="http://www.sanger.ac.uk/Projects/S_pombe/">curated yeast ortholog</a> 
+dataset, only fission and budding yeast proteins are included.  The output provides 
+the lists of orthologs together with links to the 
+<a href="http://www.genedb.org/genedb/pombe/index.jsp"><em>S. pombe</em> GeneDB</a> and 
+<a href="http://www.yeastgenome.org/">SGD</a> databases.
+</p>
+
+<br />To cite YOGY and for further details see: <br />
+
+<p><b>
+Penkett CJ, Morris JA, Wood V, and B&#228;hler J (2006). 
+YOGY: a web-based, integrated database to retrieve protein and associated Gene Ontology terms. <br />
+<a href="http://nar.oxfordjournals.org/cgi/content/abstract/34/suppl_2/W330"><i>Nucleic Acids Res.</i></a> 
+34: W330-334.
+<br /><br />
+A reprint is available as a <a href="../docs/YOGY_W330.pdf">PDF</a>.
+</b></p>
+
+
+</td></tr></table>
+
+</p>
+</div>
+        </div>
+
+        <div style="clear: both;">&nbsp;</div>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
