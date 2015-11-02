@@ -1,0 +1,8 @@
+>>Single Letter Symbol	Three Letter Symbol	Name	SPOG Species ID	NCBI TAX ID
+A	ath	Arabidopsis thaliana	10	3702
+C	cel	Caenorhabditis elegans	20	6239
+D	dme	Drosophila melanogaster	30	7227
+H	hsa	Homo sapiens	40	9606
+Y	sce	Saccharomyces cerevisiae	50	4932	
+P	spo	Schizosaccharomyces pombe	60	4896	
+E	ecu	Encephalitozoon cuniculi	70	6035
