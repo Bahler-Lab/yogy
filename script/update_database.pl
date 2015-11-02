@@ -8,7 +8,7 @@ use CGI;
 
 # Open Files ###################################################################
 
-my $dbh = connect_to_DB('mysql','S_pombe_YOGY_4','localhost','3306','','yogyrw','yogyex');
+my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','localhost','3306','','yogyrw','yogyex');
 
 
 # global variables - hmmm!
@@ -34,7 +34,7 @@ my $pombeid;
 # Pre-made file to load species info for KOGs.
 
 open (INPUT, "< ./species_db.txt")
-    or die "couldn't open file\n";
+    or die "couldn't open file species_db.txt\n";
 
 while (<INPUT>) {
 

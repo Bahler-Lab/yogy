@@ -12,7 +12,6 @@ fi
 mkdir $1
 }
 
-
 cp -rf script/* $CGI_PATH/
 cp -rf web/* $WEB_PATH/
 
