@@ -11,19 +11,30 @@ PASSWORD=yogyex
 PORT=3306
 
 connect_sql="mysql -h $HOSTNAME -P $PORT -u $USERNAME -p$PASSWORD"
+$connect_sql -e "drop database $DATABASE"
 $connect_sql -e "create database $DATABASE"
 $connect_sql $DATABASE < create_yogy.sql
+
+
+
+
+
+update_registry_gene () {
+    link=$1
+    echo "update registry.genename.tab from\n $link" 
+    Rscript create_registry_table.r $link 
+}
+
+registry_gene_link="http://downloads.yeastgenome.org/curation/chromosomal_feature/SGD_features.tab"
+update_registry_gene $registry_gene_link
+
 
 # In the following scripts, it is necessary to download certain
 #   database files from the internet - the locations of these
 #   files are given in the relevant script or in this script.
-
-
 # Files to download in perl script.
-
 echo "Initial population of data"
-
-./update_database.pl
+./update_database.pl $HOSTNAME $PORT $DATABASE $USERNAME $PASSWORD 
 
 
 # Selected files to download from:
@@ -31,11 +42,11 @@ echo "Initial population of data"
 
 echo "Adding Inparanoid"
 #cd /home/sk11/load2/inptables/inparanoid.sbc.su.se/download/7.0_current/sqltables
-for file in $(cat ../inparanoid_files.txt)
+for file in $(cat inparanoid_files.txt)
 do
   echo $file
 
- ./yogy_add_inp_terms.pl ../inptables/inparanoid.sbc.su.se/download/7.0_current/sqltables/$file
+ ./yogy_add_inp_terms.pl inptables/inparanoid.sbc.su.se/download/7.0_current/sqltables/$file
 
 done
 

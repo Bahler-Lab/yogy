@@ -5,11 +5,20 @@ use Data::Dumper;
 use DBI;
 use CGI;
 
+#$num_args = $#ARGV + 1
+#if($num_args != 2){
+#    print "Arguments: [hostname] [port] [database_name] [database_user]
+#                      [database_passwd]";
+#    exit;
+#}
 
-# Open Files ###################################################################
+my $HOSTNAME=$ARGV[0];
+my $PORT=$ARGV[1];
+my $DATABASE=$ARGV[2];
+my $USER=$ARGV[3];
+my $PASSWD=$ARGV[4];
 
-my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','localhost','3306','','yogyrw','yogyex');
-
+my $dbh = connect_to_DB('mysql',$DATABASE, $HOSTNAME, $PORT, '', $USER, $PASSWD);
 
 # global variables - hmmm!
 
@@ -176,7 +185,7 @@ close(FUN);
 # From the GeneSpring annotation file in S:\data\Fission\ yeast on the
 #   windows machines - soft link to change the file name to remove the space.
 
-open(GENESPRING, "< ./Fission_yeas_annotations_db.txt")
+open(GENESPRING, "< ./Fission_yeas_annotation_db.txt")
     or die "couldn't open file => Fission_yeas_annotations_db.txt\n";
 
 my %genespring_hash = ();
@@ -347,7 +356,7 @@ close(BUDDING);
 
 
 ################################################################################
-
+#ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/orthologs/cerevisiae-orthologs.txt
 # File from Val of latest curated pombe and budding yeast orthologs.
 # This one is from 23 Jan 2006.
 
