@@ -1,0 +1,7 @@
+ipi.ARATH.xrefs
+ipi.BOVIN.xrefs
+ipi.CHICK.xrefs
+ipi.BRARE.xrefs
+ipi.HUMAN.xrefs
+ipi.MOUSE.xrefs
+ipi.RAT.xrefs

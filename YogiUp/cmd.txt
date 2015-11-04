@@ -1,0 +1,178 @@
+# Commands to make the MySQL tables.
+
+# Only need to drop if the database is not new!
+
+mysql -h webdbsrv -P 3306 -u yogyrw -pyogyex S_pombe_YOGY_2 < drop_yogy.sql
+mysql -h webdbsrv -P 3306 -u yogyrw -pyogyex S_pombe_YOGY_2 < create_yogy.sql
+mysql -h webdbsrv -P 3306 -u yogyrw -pyogyex S_pombe_YOGY_2 < truncate_yogy.sql
+
+# In the following scripts, it is necessary to download certain
+#   database files from the internet - the locations of these
+#   files are given in the relevant script or in this script.
+
+
+# Files to download in perl script.
+
+./yogy_populate.pl
+
+
+# Selected files to download from:
+#   http://inparanoid.cgb.ki.se/download/current/sqltables/
+
+set href = "http://inparanoid.cgb.ki.se/download/current/sqltables"
+
+#foreach file (longsqltable.*)
+
+#foreach file (`cat inp_files.txt`)
+
+  #echo $file
+
+  # These two lines do not work
+
+  #set longfile = `echo "${href}/${file}"`
+  #webget.pl -a "$longfile" >! $file
+
+  #./yogy_add_inp_terms.pl $file
+
+#end
+
+foreach file (`cat inp_files.txt`)
+
+  echo $file
+
+  ./yogy_add_inp_terms.pl $file
+
+end
+
+
+# http://orthomcl.cbil.upenn.edu/ORTHOMCL_DB/all_orthomcl.out
+# OLD: http://orthomcl.cbil.upenn.edu/OrthoMCL_DB_Data/all_orthomcl.out
+
+./yogy_add_orthomcl_cluster.pl all_orthomcl.out
+
+# http://orthomcl.cbil.upenn.edu/ORTHOMCL_DB/BAE_geneid_anno
+
+./yogy_add_orthomcl_lookup.pl BAE_geneid_anno
+
+
+# File to download in perl script.
+
+./yogy_add_go_terms.pl
+
+# Selected files to download from:
+#   http://www.geneontology.org/GO.current.annotations.shtml
+
+#foreach file (gene_association.*)
+
+foreach file (`cat go_files.txt`)
+
+  echo $file
+
+  gunzip $file
+
+  ./yogy_add_go_assocs.pl $file:r
+
+  gzip $file:r
+
+end
+
+# Same location, renamed file, so that it doesn't get loaded
+#   with the previous loop!
+
+set file = "gene_association.goa_uniprot.gz"
+
+gunzip $file
+
+./yogy_add_go_assocs_uni.pl $file:r
+
+gzip $file:r
+
+
+# Files to download in perl script.
+# This script may fail during running, so some of it may need to be re-run.
+
+gunzip functional_descriptions.WS161.txt.gz
+gunzip SwissProt_mappings.WS161.txt.gz
+
+./yogy_add_new_orgs.pl
+
+gzip functional_descriptions.WS161.txt
+gzip SwissProt_mappings.WS161.txt
+
+
+# Instructions on how to download file given in perl script.
+
+./yogy_add_eco.pl
+
+# Selected xrefs files to download from:
+#   ftp://ftp.ebi.ac.uk/pub/databases/IPI/current/
+
+#foreach file (ipi.[ABCHMR]*.xrefs)
+
+foreach file (`cat ipi_files.txt`)
+
+  echo $file
+
+  gunzip $file
+
+  ./yogy_add_ipi_lookup.pl $file:r
+
+  gzip $file:r
+
+end
+
+
+# ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/gene2accession.gz
+
+set file = "gene2accession.gz"
+
+gunzip $file
+
+./yogy_add_gi_lookup.pl $file:r
+
+gzip $file:r
+
+# CURRENT LOCATION
+
+# ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz
+
+cd uni_parse
+
+set file = "uniprot_sprot"
+
+gunzip ${file}.dat.gz
+
+./uni_parse.pl ${file}.dat >! ${file}.txt
+
+gzip ${file}.dat
+
+../yogy_add_uniprot_lookup.pl ${file}.txt
+
+gzip ${file}.txt
+
+cd ..
+
+
+# ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz
+
+cd uni_parse
+
+set file = "uniprot_trembl"
+
+gunzip ${file}.dat.gz
+
+./uni_parse.pl ${file}.dat >! ${file}.txt
+
+gzip ${file}.dat
+
+../yogy_add_uniprot_lookup.pl ${file}.txt
+
+gzip ${file}.txt
+
+cd ..
+
+
+# Takes a couple of days to run this script!
+# It speeeds up the on-the-fly searching for UniProt IDs from GI numbers.
+
+./yogy_find_uniprot_ids.pl

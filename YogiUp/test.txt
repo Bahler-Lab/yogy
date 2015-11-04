@@ -1,0 +1,12 @@
+Ath: At2g21790 AT2G40120 (No descriptions)
+Cel: CE05897 zyg-9 WBGene00003150
+Ddi: DDB0191191
+Dme: CG12081 smi35a (lost KOGs result as HomoloGene GI has changed)
+     GI:17737415 (lost this HomoloGene GI) 7298142 (last one doesn't work)
+Eco: EG10660 nrdA 16130589
+Hsa: il4 ENSP00000231449 (No descriptions)
+Mmu: il4 MGI:98180 ENSMUSP00000000889 ENSMUSP00000077601 Foxj3 ENSMUSP00000077601
+Pfa: PF08_0098
+Rno: il4 ENSRNOP00000010029 RGD:1311770 (lost OrthoMCL as GI changes so can't get ENSEMBL ID)
+Sce: S000000661 YBR082C
+Spo: pom1 tea1 sep1 ace2 abc1 fkh2 cdc22 set2 klp1 krp1 SPAC2F7.03c

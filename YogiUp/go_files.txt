@@ -1,0 +1,15 @@
+gene_association.cgd
+gene_association.dictyBase
+gene_association.fb
+gene_association.GeneDB_Pfalciparum
+gene_association.GeneDB_Spombe
+gene_association.goa_chicken
+gene_association.goa_cow
+gene_association.goa_human
+gene_association.gramene_oryza
+gene_association.mgi
+gene_association.rgd
+gene_association.sgd
+gene_association.tair
+gene_association.wb
+gene_association.zfin
