@@ -13,8 +13,8 @@
 #' "standard_gene_name" is not empty.
 get_gene_table<-function(registry_file_location, header){
     # Please varify if the headers are correct by the website description.
-    table_origin<-read.delim(registry_file_location, header=FALSE, 
-                             col.names=header, sep="\t")
+    table_origin<-read.delim(registry_file_location, header=FALSE, quote="", 
+                             col.names=header, sep="\t", stringsAsFactors=FALSE)
 
     table_uniquename<-
         table_origin[table_origin$standard_gene_name!="",]
@@ -31,21 +31,21 @@ create_populate_table<-function(table){
                            alias_2=table$alias, # not sure
                            description2=table$description, #not sure
                            feature_name=table$feature_name,
-                           primary_SGDID=table$primary_SGDID)
+                           primary_SGDID=table$primary_SGDID,
+                           stringsAsFactors=FALSE)
     return(popu_table)
 }
 
 
 
 # main
-args<-commandArgs(trailingOnly = TRUE)
+#args<-commandArgs(trailingOnly = TRUE)
 outfile<-"registry.genenames.tab"
-#if(length(args)!=1){
-#    location<-"http://downloads.yeastgenome.org/curation/chromosomal_feature/SGD_features.tab"
-#}
-#else{
-    location<-args[1]
-#}
+location<-"http://downloads.yeastgenome.org/curation/chromosomal_feature/SGD_features.tab"
+#    location<-args[1]
+
+cat("creating gene registry table from (SGD) from:", location, "...")
+
 header<-c("primary_SGDID", "feature_type","feature_qualifier","feature_name",
           "standard_gene_name","alias","parent_feature_name","secondary_SGDID",
           "chromosome","start_coordinate","stop_coordinate","strand",
@@ -54,4 +54,4 @@ header<-c("primary_SGDID", "feature_type","feature_qualifier","feature_name",
 
 registry_table<-get_gene_table(location, header)
 populate_table<-create_populate_table(registry_table)
-write.table(populate_table, outfile, quote=FALSE, sep="\t", row.name=FALSE, col.name=FALSE)
+cat("[done]\n")
