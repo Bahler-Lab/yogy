@@ -1,7 +1,5 @@
 #=====================================================================
 # create_registry_table.r
-# Download gene registry (SGD_feaure) from yeastgenom.org
-# and convert it to a table that can be used by yogy_populate.pl
 #
 # Notice: if the data structure will be changed in the future, please
 #         modify `location` and `header`
@@ -39,10 +37,8 @@ create_populate_table<-function(table){
 
 
 # main
-#args<-commandArgs(trailingOnly = TRUE)
-outfile<-"registry.genenames.tab"
-location<-"http://downloads.yeastgenome.org/curation/chromosomal_feature/SGD_features.tab"
-#    location<-args[1]
+outfile<-"data/registry.genenames.tab"
+location<-"temp/SGD_features.tab"
 
 cat("creating gene registry table from (SGD) from:", location, "...")
 
@@ -54,4 +50,5 @@ header<-c("primary_SGDID", "feature_type","feature_qualifier","feature_name",
 
 registry_table<-get_gene_table(location, header)
 populate_table<-create_populate_table(registry_table)
+write.table(populate_table, outfile, quote=FALSE, sep="\t", row.name=FALSE, col.name=FALSE)
 cat("[done]\n")

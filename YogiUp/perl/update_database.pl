@@ -42,7 +42,7 @@ my $pombeid;
 
 # Pre-made file to load species info for KOGs.
 
-open (INPUT, "< ./species_db.txt")
+open (INPUT, "< data/species_db.txt")
     or die "couldn't open file species_db.txt\n";
 
 while (<INPUT>) {
@@ -73,7 +73,7 @@ close (INPUT);
 
 # Set as a soft link in this directory to make the file name nicer!
 
-open(GIINPUT, "< ./GI_numbers_db.txt")
+open(GIINPUT, "< data/GI_numbers_db.txt")
     or die "couldn't open file => GI_numbers_db.txt \n";
 
 my $gi;
@@ -92,7 +92,7 @@ close(GIINPUT);
 
 # ftp://ftp.ncbi.nih.gov/pub/COG/KOG/kog
 
-open(KOGINPUT, "< ./kog_db.txt")
+open(KOGINPUT, "< data/kog_db.txt")
     or die "couldn't open file => kog_db.txt\n";
 
 while (<KOGINPUT>) {
@@ -152,7 +152,7 @@ close(KOGINPUT);
 
 # ftp://ftp.ncbi.nih.gov/pub/COG/KOG/fun.txt
 
-open(FUN, "< ./fun_db.txt")
+open(FUN, "< data/fun_db.txt")
     or die "couldn't open file => fun_db.txt\n";
 
 my $process_type;
