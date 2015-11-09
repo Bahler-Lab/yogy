@@ -23,13 +23,13 @@ get_gene_table<-function(registry_file_location, header){
 
 
 create_populate_table<-function(table){
-    popu_table<-data.frame(standard_gene_name=table$standard_gene_name,
-                           alias=table$alias, # not sure, for making consistent with the old layout
-                           description=table$description,
-                           alias_2=table$alias, # not sure
-                           description2=table$description, #not sure
-                           feature_name=table$feature_name,
-                           primary_SGDID=table$primary_SGDID,
+    popu_table<-data.frame(SGD_symbol=table$standard_gene_name,
+                           SGD_alternate=table$alias, # not sure, for making consistent with the old layout
+                           SGD_descrip=table$description,
+                           SGD_product=table$alias, # not sure
+                           SGD_pheno=table$description, #not sure
+                           SGD_sys_name=table$feature_name,
+                           SGDID=table$primary_SGDID,
                            stringsAsFactors=FALSE)
     return(popu_table)
 }
@@ -40,7 +40,7 @@ create_populate_table<-function(table){
 outfile<-"data/registry.genenames.tab"
 location<-"temp/SGD_features.tab"
 
-cat("creating gene registry table from (SGD) from:", location, "...")
+cat("creating gene registry table from (SGD) from:", location, "... ")
 
 header<-c("primary_SGDID", "feature_type","feature_qualifier","feature_name",
           "standard_gene_name","alias","parent_feature_name","secondary_SGDID",
@@ -49,6 +49,8 @@ header<-c("primary_SGDID", "feature_type","feature_qualifier","feature_name",
           "description")
 
 registry_table<-get_gene_table(location, header)
-populate_table<-create_populate_table(registry_table)
-write.table(populate_table, outfile, quote=FALSE, sep="\t", row.name=FALSE, col.name=FALSE)
+sdg_table<-create_populate_table(registry_table)
+write.table(sdg_table, outfile, quote=FALSE, sep="\t", row.name=FALSE, col.name=FALSE)
+
+save(sdg_table, file="temp/sdg_table.Rdata")
 cat("[done]\n")
