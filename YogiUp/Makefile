@@ -13,6 +13,7 @@ update:
 
 prepare:
 	Rscript R/setup_sdg.r
+	Rscript R/setup_fission_yeast_annontation.r
 
 download:
 	$(WGET) -q 'ftp://ftp.ncbi.nih.gov/pub/COG/KOG/kyva=gb' -O ${DATA_DIR}/GI_numbers_db.txt

@@ -185,7 +185,7 @@ close(FUN);
 # From the GeneSpring annotation file in S:\data\Fission\ yeast on the
 #   windows machines - soft link to change the file name to remove the space.
 
-open(GENESPRING, "< ./Fission_yeas_annotation_db.txt")
+open(GENESPRING, "< data/Fission_yeas_annotations_db.txt")
     or die "couldn't open file => Fission_yeas_annotations_db.txt\n";
 
 my %genespring_hash = ();
