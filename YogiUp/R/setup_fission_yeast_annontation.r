@@ -41,12 +41,12 @@ match_table<-function(base, table_match, col_match, col_val, ...){
 #' read following three tables
 #' header information are found on the website.
 #' allName.tsv           -   no header, skip 2 lines
-#' PomBase2UniPort.tsv   -   with header
+#' PomBase2UniProt.tsv   -   with header
 #' sysID2product.tsv     -   no header, skip 2 lines
 get.unique.from.rawtables<-function(){
 
     header_allname<-c("systematic_name", "primary_name", "synonyms")
-    header_uniport<-c("stable_id", "dbprimary_acc")
+    header_uniprot<-c("stable_id", "dbprimary_acc")
     header_product<-c("systematic_name", "primary_name", "synonyms", "product")
     #read table
     t_allname<<-read.delim("temp/allName.tsv", col.name=header_allname,
@@ -55,7 +55,7 @@ get.unique.from.rawtables<-function(){
     t_product<<-read.delim("temp/sysID2product.tsv", col.name=header_product,
                            header=FALSE, skip=2, stringsAsFactors=FALSE, sep="\t",
                            quote="")
-    t_uniport<<-read.delim("temp/PomBase2UniPort.tsv", stringsAsFactors=FALSE, sep="\t",
+    t_uniprot<<-read.delim("temp/PomBase2UniProt.tsv", stringsAsFactors=FALSE, sep="\t",
                            quote="")
 
     # make sure that all tables are has unique entries.
@@ -64,17 +64,17 @@ get.unique.from.rawtables<-function(){
 
     t_product<<-make_unique_table(t_product, "systematic_name")
 
-    t_uniport<-make_unique_table(t_uniport, "stable_id")
-    t_uniport<<-make_unique_table(t_uniport, "dbprimary_acc")
+    t_uniprot<-make_unique_table(t_uniprot, "stable_id")
+    t_uniprot<<-make_unique_table(t_uniprot, "dbprimary_acc")
 }
 
 
 # the new table will only extract 4 information from downloaded tables,
 # 1. systematic name, 2. fussed systematic and primary name, 3. description
-# 4. uniport. Duplicated primary names and systematic names have been 
+# 4. uniprot. Duplicated primary names and systematic names have been 
 # removed. 
 get.new.table<-function(){
-    select_systematic_name<-match_table(t_uniport[, "stable_id"], t_allname,
+    select_systematic_name<-match_table(t_uniprot[, "stable_id"], t_allname,
                                         "systematic_name", "systematic_name")
 
     select_primary_name<-match_table(select_systematic_name, t_allname,
@@ -84,19 +84,19 @@ get.new.table<-function(){
         select_systematic_name[select_primary_name == ""]
 
 
-    select_uniport<-match_table(select_systematic_name, t_uniport,
+    select_uniprot<-match_table(select_systematic_name, t_uniprot,
                                 "stable_id", "dbprimary_acc")
     select_description<-match_table(select_systematic_name, t_product,
                                     "systematic_name", "product", nomatch="")
 
     # check
     stopifnot(length(select_primary_name) == length(select_systematic_name))
-    stopifnot(length(select_primary_name) == length(select_uniport))
+    stopifnot(length(select_primary_name) == length(select_uniprot))
     stopifnot(length(select_primary_name) == length(select_description))
     return(list("primary_name" = select_primary_name, 
                 "systematic_name" = select_systematic_name,
                 "description" = select_description, 
-                "uniport" = select_uniport))
+                "uniprot" = select_uniprot))
 
 }
 
@@ -115,7 +115,7 @@ create.fission.yeats.table<-function(new_table){
                               "PubMedID"              = new_table[["systematic_name"]],
                               "GeneDB"                = new_table[["description"]],
                               "Remarks"               = rep("", nrow),
-                              "Swissprot"             = new_table[["uniport"]],
+                              "Swissprot"             = new_table[["uniprot"]],
                               "Type"                  =rep("", nrow),
                               "DBid"                  =rep("", nrow),
                               "GO_biological_process" =rep("", nrow),
@@ -133,5 +133,5 @@ create.fission.yeats.table<-function(new_table){
 get.unique.from.rawtables()
 new_table<-get.new.table()
 fission_table<-create.fission.yeats.table(new_table)
-write.table(fission_table, "data/Fission_yeas_annotations_db.txt", 
+write.table(fission_table, "data/Fission_yeas_annotations.txt", 
             quote=FALSE, sep="\t", row.name=FALSE, col.name=FALSE)

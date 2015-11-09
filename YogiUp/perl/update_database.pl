@@ -42,8 +42,8 @@ my $pombeid;
 
 # Pre-made file to load species info for KOGs.
 
-open (INPUT, "< data/species_db.txt")
-    or die "couldn't open file species_db.txt\n";
+open (INPUT, "< data/species.txt")
+    or die "couldn't open file species.txt\n";
 
 while (<INPUT>) {
 
@@ -73,8 +73,8 @@ close (INPUT);
 
 # Set as a soft link in this directory to make the file name nicer!
 
-open(GIINPUT, "< data/GI_numbers_db.txt")
-    or die "couldn't open file => GI_numbers_db.txt \n";
+open(GIINPUT, "< data/GI_numbers.txt")
+    or die "couldn't open file => GI_numbers.txt \n";
 
 my $gi;
 my %gi_hash = ();
@@ -92,8 +92,8 @@ close(GIINPUT);
 
 # ftp://ftp.ncbi.nih.gov/pub/COG/KOG/kog
 
-open(KOGINPUT, "< data/kog_db.txt")
-    or die "couldn't open file => kog_db.txt\n";
+open(KOGINPUT, "< data/kog.txt")
+    or die "couldn't open file => kog.txt\n";
 
 while (<KOGINPUT>) {
 
@@ -152,8 +152,8 @@ close(KOGINPUT);
 
 # ftp://ftp.ncbi.nih.gov/pub/COG/KOG/fun.txt
 
-open(FUN, "< data/fun_db.txt")
-    or die "couldn't open file => fun_db.txt\n";
+open(FUN, "< data/fun.txt")
+    or die "couldn't open file => fun.txt\n";
 
 my $process_type;
 
@@ -185,8 +185,8 @@ close(FUN);
 # From the GeneSpring annotation file in S:\data\Fission\ yeast on the
 #   windows machines - soft link to change the file name to remove the space.
 
-open(GENESPRING, "< data/Fission_yeas_annotations_db.txt")
-    or die "couldn't open file => Fission_yeas_annotations_db.txt\n";
+open(GENESPRING, "< data/Fission_yeas_annotations.txt")
+    or die "couldn't open file => Fission_yeas_annotations.txt\n";
 
 my %genespring_hash = ();
 
@@ -212,8 +212,8 @@ close(GENESPRING);
 
 # ftp://ftp.sanger.ac.uk/pub/yeast/pombe/Mappings/gp2swiss.txt
 
-open(SWISS, "< ./gp2swiss_db.txt")
-    or die "couldn't open file => gp2swiss_db.txt\n";
+open(SWISS, "< data/gp2swiss.txt")
+    or die "couldn't open file => data/gp2swiss.txt\n";
 
 my %swissprot_hash = ();
 
@@ -233,8 +233,8 @@ close(SWISS);
 
 # ftp://ftp.sanger.ac.uk/pub/yeast/pombe/Protein_data/pompep
 
-open(GENEDB, "< ./pompep_db.txt")
-    or die "couldn't open file => pompep_db.txt\n";
+open(GENEDB, "< data/pompep.txt")
+    or die "couldn't open file => pompep.txt\n";
 
 undef my @synonym_array;
 undef my @geneDB_array;
@@ -339,7 +339,7 @@ close(GENEDB);
 
 # ftp://genome-ftp.stanford.edu/pub/yeast/gene_registry/registry.genenames.tab
 
-open(BUDDING, "< ./registry.genenames.tab")
+open(BUDDING, "< data/registry.genenames.tab")
     or die "Couldn't Open File => budding genes\n";
 
 while (<BUDDING>) {
@@ -360,7 +360,7 @@ close(BUDDING);
 # File from Val of latest curated pombe and budding yeast orthologs.
 # This one is from 23 Jan 2006.
 
-open(ORTHOLOGS, "< ./yeast_ortho_db.txt")
+open(ORTHOLOGS, "< data/yeast_ortho.txt")
     or die "Couldn't Open File => ortholog table\n";
 
 while (<ORTHOLOGS>) {
@@ -386,7 +386,7 @@ close(ORTHOLOGS);
 
 # ftp://ftp.ncbi.nih.gov/pub/HomoloGene/current/homologene.data
 
-open(HOMOLOGENE, "./homologene_db.data")
+open(HOMOLOGENE, "data/homologene.data")
     or die "Couldn't Open File => homologene_db.data\n";
 
 while (<HOMOLOGENE>) {
