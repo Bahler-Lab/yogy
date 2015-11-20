@@ -36,6 +36,8 @@ download:
 	# pompep
 	$(WGET) -q 'ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz' -O ${TEMP_DIR}/pep.fa.gz
 	$(ZIP) -c ${TEMP_DIR}/pep.fa.gz > ${DATA_DIR}/pompep.txt
+	# GO ID
+	$(WGET) -q 'http://www.geneontology.org/doc/GO.terms_ids_obs' -O ${DATA_DIR}/GO.terms_ids_obs
 
 
 
