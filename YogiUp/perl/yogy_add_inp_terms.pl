@@ -4,21 +4,23 @@ use strict;
 use Data::Dumper;
 use DBI;
 
-my $file = shift;
 
-my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','128.40.79.33','3306','','yogyrw','yogyex');
-
+my ($file, $MYSQL, $DATABASE, $HOST, $PORT, $USER, $PASSWD) = @ARGV;
+#if (not defined $MYSQL or not defined $DATABASE
+#    or not defined $HOST or not defined $PORT
+#    or not defined $USER or not defined $PASSWD){
+#  die "[ERROR]: 
+#  wrong arguments! [file, mysql, database, host, port, user, passwd]"
+#}
+my $dbh = connect_to_DB("/usr/local/Cellar/mysql/5.6.27/bin/mysql", $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
 
 open(FILE, $file)
     or die "Couldn't open file $file: $!";
 
-#open(INFILE, "names.txt")
- #   or die "Couldn't open file : $!";
-
-my %speciescodes=(   'AG'=> 'ensAG',
-'HS'=>      'ensHS',
+  my %speciescodes=(   'AG'=> 'ensAG',
+'HS' =>     'ensHS',
 'AM' =>     'ensAM',
-'CE'   =>   'ensCE',
+'CE' =>     'ensCE',
 'CF' =>     'ensCF',
 'DM' =>     'ensDM',
 'DR' =>     'ensDR',
