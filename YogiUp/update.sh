@@ -24,7 +24,7 @@ echo "Initial population of data"
 #perl ${PERL_DIR}/update_database.pl $HOSTNAME $PORT $DATABASE $USERNAME $PASSWORD 
 
 #--------------------------
-echo "Adding Inparanoid"
+echo "Adding Inparanoid - skip"
 #--------------------------
 #paranoid_path='data/inparanoid'
 #paranoid_file=($(ls $paranoid_path))
@@ -36,10 +36,30 @@ echo "Adding Inparanoid"
 #    printf '\r           \r'$i/${#paranoid_file[@]} ,  
 #done
 
+#--------------------------
+echo "Addding OrthoMCL clusters"
+#--------------------------
+perl ${PERL_DIR}/yogy_add_orthomcl_cluster.pl ${DATA_DIR}/all_orthomcl.out\
+    $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
+
+#--------------------------
+echo "Addding OrthoMCL Lookup names"
+#--------------------------
+perl ${PERL_DIR}/yogy_add_orthomcl_lookup.pl ${DATA_DIR}/BAE_geneid_anno\
+    $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
 
 #--------------------------
 echo "Adding GO terms"
 #--------------------------
 perl ${PERL_DIR}/yogy_add_go_terms.pl ${DATA_DIR}/GO.terms_ids_obs\
     $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
+
+#--------------------------
+echo "Adding GO terms"
+#--------------------------
+go_association_files=()
+
+
+
+
 
