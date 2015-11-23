@@ -12,7 +12,7 @@ my ($file, $MYSQL, $DATABASE, $HOST, $PORT, $USER, $PASSWD) = @ARGV;
 #  die "[ERROR]: 
 #  wrong arguments! [file, mysql, database, host, port, user, passwd]"
 #}
-my $dbh = connect_to_DB("/usr/local/Cellar/mysql/5.6.27/bin/mysql", $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
+my $dbh = connect_to_DB($MYSQL, $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
 
 open(FILE, $file)
     or die "Couldn't open file $file: $!";
@@ -64,7 +64,7 @@ while (<FILE>) {
     my $organsm=(substr $tmp[2],0,1).uc (substr $tmp[2],2,1);
 
     insert_inparanoid_member_rows($code, $tmp[0], $tmp[1],$speciescodes{$organsm}, $tmp[3], $tmp[4]);
-#  print ("$code\t$tmp[0]\t$tmp[1]\t$tmp[3]\t$speciescodes{$organsm}\t$tmp[4]\n");
+    print ("$code\t$tmp[0]\t$tmp[1]\t$tmp[3]\t$speciescodes{$organsm}\t$tmp[4]\n");
 
 
 }

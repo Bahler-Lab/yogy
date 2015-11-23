@@ -38,8 +38,10 @@ download:
 	$(ZIP) -c ${TEMP_DIR}/pep.fa.gz > ${DATA_DIR}/pompep.txt
 	# GO ID
 	$(WGET) -q 'http://www.geneontology.org/doc/GO.terms_ids_obs' -O ${DATA_DIR}/GO.terms_ids_obs
-
-
+	# OrthoMCL cluster
+	$(WGET) -q 'http://www.orthomcl.org/common/downloads/1.0/all_orthomcl.out' -O ${DATA_DIR}/all_orthomcl.out
+	# OrthoMCL lookup names
+	$(WGET) -q 'http://www.orthomcl.org/common/downloads/1.0/BAE_geneid_anno' -O ${DATA_DIR}/BAE_geneid_anno
 
 
 
