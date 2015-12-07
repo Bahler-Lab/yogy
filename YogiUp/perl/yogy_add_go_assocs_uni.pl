@@ -16,10 +16,9 @@ my @species_taxids = qw(3702 6239 7227 9606 4932 4896 6035 7165
 #                      39947 36329 562 242507 5141 33169 7460
 #                      9615 99883 44689 7237 284590);
 
-my $file = shift;
 
-my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','128.40.79.33','3306','','yogyrw','yogyex');
-
+my ($file, $MYSQL, $DATABASE, $HOST, $PORT, $USER, $PASSWD) = @ARGV;
+my $dbh = connect_to_DB($MYSQL, $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
 
 open(GO_TERMS, $file)
     or die "Couldn't open file $file: $!";
@@ -91,7 +90,7 @@ sub insert_go_terms {
 
     #my @array = split /\t/, $line;
 
-    my $insert = qq(INSERT INTO go_mappings (database_name,
+    my $insert = qq(INSERT IGNORE INTO go_mappings (database_name,
                                              database_id,
                                              database_symbol,
                                              qualifier,

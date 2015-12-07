@@ -5,6 +5,7 @@ yum install git
 git clone https://github.com/UCL/bahler-yogy
 yum install httpd gcc mysql-server perl cpan wget
 yum install perl-cgi perl-YAML perl-Spiffy perl-GD
+yum install ftp
 sudo /etc/init.d/mysqld restart
 sudo /etc/init.d/httpd start
 

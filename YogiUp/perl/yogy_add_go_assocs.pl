@@ -1,5 +1,9 @@
 #!/usr/bin/perl -w
 
+# add geneontology associate files which should be no less then 15 columns to
+# the database `go_mappings` where primary key = (db_name, db_id, go_id, evidence,
+# db_referece, with_from)
+
 use strict;
 use Data::Dumper;
 use DBI;
@@ -29,7 +33,7 @@ while (defined (my $line = <GO_TERMS>) ) {
 
     next WHILE
         if $array[6] eq 'IEA';
-
+        
     insert_go_terms(@array);
 
 }
@@ -63,14 +67,8 @@ sub disconnect_from_DB {
 
 
 sub insert_go_terms {
-
     my @array = @_;
-
-    #my @array = split /\t/, $line;
-
-    #$array[5] = '';
-
-    my $insert = qq(INSERT INTO go_mappings (database_name,
+    my $insert = qq(INSERT IGNORE INTO go_mappings (database_name,
                                              database_id,
                                              database_symbol,
                                              qualifier,
@@ -105,7 +103,7 @@ sub insert_go_terms {
                   $array[11],
                   $array[12],
                   $array[13],
-                  $array[14])
-        or warn "Can't execute: $DBI::errstr\n";
+                  $array[14]);
+              #or warn "Can't execute: $DBI::errstr\n";
 
 }
