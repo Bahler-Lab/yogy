@@ -4,35 +4,37 @@ use strict;
 use Data::Dumper;
 use DBI;
 
-my $file = shift;
+my ($file, $MYSQL, $DATABASE, $HOST, $PORT, $USER, $PASSWD) = @ARGV;
+my $dbh = connect_to_DB($MYSQL, $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
 
-my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','128.40.79.33','3306','','yogyrw','yogyex');
+sub getSpecies{
+    my $filename = $_[0];
+    my %file_species = ('ARATH.xrefs' => 10,
+        'HUMAN.xrefs' => 40,
+        'BRARE.xrefs' => 100,
+        'CHICK.xrefs' => 120,
+        'MOUSE.xrefs' => 130,
+        'RAT.xrefs'   => 150,
+        'BOVIN.xrefs' => 280);
 
-my %file_species = ('ipi.ARATH.xrefs' => 10,
-                    'ipi.HUMAN.xrefs' => 40,
-                    'ipi.BRARE.xrefs' => 100,
-                    'ipi.CHICK.xrefs' => 120,
-                    'ipi.MOUSE.xrefs' => 130,
-                    'ipi.RAT.xrefs'   => 150,
-                    'ipi.BOVIN.xrefs' => 280);
+    foreach my $i (keys %file_species){
+        if(index($filename, $i) != -1 ){
+            return $file_species{$i};
+        }
+    }
+    die "cannot find the corresponding specie through file name";
+}
+
 
 open(IPI, $file)
     or die "Couldn't open file $file: $!";
-
 my $tmp = <IPI>;
-
 while (defined (my $line = <IPI>) ) {
-
     chomp $line;
-
-    #print "[$line]\n";
-
-    insert_ipi_lines($file_species{$file}, $line);
-
+    insert_ipi_lines(getSpecies($file), $line);
 }
 
 close(IPI);
-
 disconnect_from_DB();
 
 
@@ -78,31 +80,31 @@ sub insert_ipi_lines {
     #print "[$_]\n" foreach @array;
     #return;
 
-    my $insert = qq(INSERT INTO ipi_lookup (species_id,
-                                            DB_name,
-                                            DB_id,
-                                            IPI_id,
-                                            ALT_USP_id,
-                                            ALT_UTR_id,
-                                            ALT_ENS_id,
-                                            ALT_RS_id,
-                                            ALT_TAIR_id,
-                                            ALT_HINV_id,
-                                            EMBL_acc,
-                                            MO_DB_id,
-                                            NCBI_gene_id,
-                                            UNIPARC_id,
-                                            UniGene_id,
-                                            CCDS_id,
-                                            RS_GI_PI_id,
-                                            ALT_VEGA_id)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                   );
+    my $insert = qq(INSERT IGNORE INTO ipi_lookup (species_id,
+    DB_name,
+    DB_id,
+    IPI_id,
+    ALT_USP_id,
+    ALT_UTR_id,
+    ALT_ENS_id,
+    ALT_RS_id,
+    ALT_TAIR_id,
+    ALT_HINV_id,
+    EMBL_acc,
+    MO_DB_id,
+    NCBI_gene_id,
+    UNIPARC_id,
+    UniGene_id,
+    CCDS_id,
+    RS_GI_PI_id,
+    ALT_VEGA_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    );
 
     my $sth = $dbh->prepare($insert)
         or die "Can't prepare: $DBI::errstr\n";
 
-        $sth->execute($species_id, @array)
-            or warn "Can't execute: $DBI::errstr\n";
+    $sth->execute($species_id, @array)
+        or warn "Can't execute: $DBI::errstr\n";
 
 }

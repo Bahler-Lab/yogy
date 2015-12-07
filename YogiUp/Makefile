@@ -19,6 +19,9 @@ gene_association_files:=gene_association.cgd gene_association.dictyBase gene_ass
     gene_association.goa_human gene_association.gramene_oryza gene_association.mgi\
     gene_association.rgd gene_association.sgd gene_association.tair \
     gene_association.wb gene_association.zfin
+
+ipi_lookup_info_files := ipi.ARATH.xrefs ipi.BOVIN.xrefs ipi.CHICK.xrefs \
+    ipi.HUMAN.xrefs ipi.MOUSE.xrefs ipi.RAT.xrefs #ipi.BRARE.xrefs 
 add_geneontology_association:=$(gene_association_files)
 
 
@@ -70,9 +73,17 @@ add_orthomcl_lookup_names: download_orthomcl_lookup_names
 	       $(MYSQL) $(DATABASE) $(HOSTNAME) $(PORT) $(USERNAME) $(PASSWORD)
 	@printf "[done]\n---------------------------------------\n"
 
-add_ipi_lookup_info: init_populate
-	@printf "Adding IPI lookup information ..."
-	@
+test:$(ipi_lookup_info_files)
+
+
+
+$(ipi_lookup_info_files):
+	@printf "Adding IPI lookup information $@ ... "
+	@$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/$@.gz -P ${TEMP_DIR}
+	@$(ZIP) -c ${TEMP_DIR}/$@.gz > ${DATA_DIR}/$@
+	@perl ${PERL_DIR}/yogy_add_ipi_lookup.pl ${DATA_DIR}/$@\
+	       $(MYSQL) $(DATABASE) $(HOSTNAME) $(PORT) $(USERNAME) $(PASSWORD)
+	@printf "[done]\n"
 
 
 
