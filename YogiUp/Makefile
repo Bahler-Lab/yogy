@@ -34,8 +34,11 @@ update: init_populate add_geneontology_id \
 	add_orthomcl_lookup_names \
     
 
-init_populate: prepare_initi_populate 
+init_populate: 
 	@printf "Initialise SQL tables ... "
+	@Rscript R/setup_sdg.r
+	@Rscript R/setup_fission_yeast_annontation.r
+	@Rscript R/setup_gp2swiss.r
 	@$(connect_sql) -e "drop database $(DATABASE)"
 	@$(connect_sql) -e "create database $(DATABASE)"
 	@$(connect_sql) $(DATABASE) < create_yogy.sql
@@ -73,9 +76,6 @@ add_orthomcl_lookup_names: download_orthomcl_lookup_names
 	       $(MYSQL) $(DATABASE) $(HOSTNAME) $(PORT) $(USERNAME) $(PASSWORD)
 	@printf "[done]\n---------------------------------------\n"
 
-test:$(ipi_lookup_info_files)
-
-
 
 $(ipi_lookup_info_files):
 	@printf "Adding IPI lookup information $@ ... "
@@ -85,36 +85,24 @@ $(ipi_lookup_info_files):
 	       $(MYSQL) $(DATABASE) $(HOSTNAME) $(PORT) $(USERNAME) $(PASSWORD)
 	@printf "[done]\n"
 
+add_gene2accession:
+	@printf "Adding GI lookup table ... "
+	@perl ${PERL_DIR}/yogy_add_gi_lookup.pl ${DATA_DIR}/gene2accession\
+	       $(MYSQL) $(DATABASE) $(HOSTNAME) $(PORT) $(USERNAME) $(PASSWORD)
+	@printf "[done]\n---------------------------------------\n"
+
+#
+#add_uniprot_sprot:
+#	@printf "Parsing SwissProt ... "
+#	@perl ${PERL_DIR}/uni_parse.pl ${file}.dat 
+#	> ${file}.txt ${DATA_DIR}/gene2accession\
+#	       $(MYSQL) $(DATABASE) $(HOSTNAME) $(PORT) $(USERNAME) $(PASSWORD)
+#
 
 
+test:download_uniprot_sprot
 
-download_init_populate: 
-	@#$(WGET) -q ftp://ftp.ncbi.nih.gov/pub/COG/KOG/kyva=gb -O ${DATA_DIR}/GI_numbers.txt
-	@#$(WGET) -q ftp://ftp.ncbi.nih.gov/pub/COG/KOG/kog -O ${DATA_DIR}/kog.txt
-	@#$(WGET) -q ftp://ftp.ncbi.nih.gov/pub/COG/KOG/fun.txt -O ${DATA_DIR}/fun.txt
-	@## the raw table of gene_registry.tab
-	@#$(WGET) -q http://downloads.yeastgenome.org/curation/chromosomal_feature/SGD_features.tab -O ${TEMP_DIR}/SGD_features.tab
-	@## these files for creating Fission_yeast
-	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/Mappings/allNames.tsv -O ${TEMP_DIR}/allName.tsv
-	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/Mappings/PomBase2UniProt.tsv -O ${TEMP_DIR}/PomBase2UniProt.tsv 
-	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/Mappings/sysID2product.tsv -O ${TEMP_DIR}/sysID2product.tsv
-	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz -O ${TEMP_DIR}/pep.fa.gz
-	@## yeast_ortho_db.txt
-	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/orthologs/cerevisiae-orthologs.txt -O ${DATA_DIR}/yeast_ortho.txt
-	@## homologene_db.txt
-	@#$(WGET) -q ftp://ftp.ncbi.nih.gov/pub/HomoloGene/current/homologene.data -O ${DATA_DIR}/homologene.data
-	@## gp2swiss.txt
-	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/Mappings/PomBase2UniProt.tsv -O ${DATA_DIR}/gp2swiss.txt
-	@## pompep
-	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz -O ${TEMP_DIR}/pep.fa.gz
-	@#$(ZIP) -c ${TEMP_DIR}/pep.fa.gz > ${DATA_DIR}/pompep.txt
-	@## GO ID
-	@#$(WGET) -q http://www.geneontology.org/doc/GO.terms_ids_obs -O ${DATA_DIR}/GO.terms_ids_obs
 
-prepare_initi_populate: download_init_populate
-	@Rscript R/setup_sdg.r
-	@Rscript R/setup_fission_yeast_annontation.r
-	@Rscript R/setup_gp2swiss.r
 
 download_geneontology_id: 
 	@printf "Downloading geneontology ID: GO.terms_ids_obs ... "
@@ -143,6 +131,53 @@ download_orthomcl_lookup_names:
 	@$(WGET) -q http://www.orthomcl.org/common/downloads/1.0/all_orthomcl.out -O ${DATA_DIR}/all_orthomcl.out
 	@printf "[done]\n"
 
+download_gene2accession:
+	@printf "Downloading gene2accesion  ... "
+	@#$(WGET) ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/gene2accession.gz -P ${TEMP_DIR}
+	@#$(ZIP) -c ${TEMP_DIR}/gene2accession.gz > ${DATA_DIR}/gene2accession
+	@printf "[done]\n"
+
+download_uniprot_sprot:
+	@printf "Downloading uniprot sprot ... "
+	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz -P ${TEMP_DIR}/
+	@#$(ZIP) -c ${TEMP_DIR}/uniprot_sprot.dat.gz > ${TEMP_DIR}/uniprot_sprot.dat
+	@#perl ${PERL_DIR}/yogy_uni_parse.pl ${TEMP_DIR}/uniprot_sprot.dat > ${DATA_DIR}/uniprot_sprot.txt
+	@printf "[done]\n"
+	@printf "Adding SwissProt lookup info ... "
+	@perl ${PERL_DIR}/yogy_add_uniprot_lookup.pl ${DATA_DIR}/uniprot_sprot.txt\
+	       $(MYSQL) $(DATABASE) $(HOSTNAME) $(PORT) $(USERNAME) $(PASSWORD)
+	@printf "[done]\n"
+
+download_uniprot_trembl:
+	@printf "Downloading uniprot_trembl ... "
+	@printf "$(WGET) ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"
+	
+
+
 clean:
 	rm -rf ${TEMP_DIR}/*
+
+download_init_populate: 
+	@#$(WGET) -q ftp://ftp.ncbi.nih.gov/pub/COG/KOG/kyva=gb -O ${DATA_DIR}/GI_numbers.txt
+	@#$(WGET) -q ftp://ftp.ncbi.nih.gov/pub/COG/KOG/kog -O ${DATA_DIR}/kog.txt
+	@#$(WGET) -q ftp://ftp.ncbi.nih.gov/pub/COG/KOG/fun.txt -O ${DATA_DIR}/fun.txt
+	@## the raw table of gene_registry.tab
+	@#$(WGET) -q http://downloads.yeastgenome.org/curation/chromosomal_feature/SGD_features.tab -O ${TEMP_DIR}/SGD_features.tab
+	@## these files for creating Fission_yeast
+	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/Mappings/allNames.tsv -O ${TEMP_DIR}/allName.tsv
+	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/Mappings/PomBase2UniProt.tsv -O ${TEMP_DIR}/PomBase2UniProt.tsv 
+	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/Mappings/sysID2product.tsv -O ${TEMP_DIR}/sysID2product.tsv
+	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz -O ${TEMP_DIR}/pep.fa.gz
+	@## yeast_ortho_db.txt
+	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/orthologs/cerevisiae-orthologs.txt -O ${DATA_DIR}/yeast_ortho.txt
+	@## homologene_db.txt
+	@#$(WGET) -q ftp://ftp.ncbi.nih.gov/pub/HomoloGene/current/homologene.data -O ${DATA_DIR}/homologene.data
+	@## gp2swiss.txt
+	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/pombe/Mappings/PomBase2UniProt.tsv -O ${DATA_DIR}/gp2swiss.txt
+	@## pompep
+	@#$(WGET) -q ftp://ftp.ebi.ac.uk/pub/databases/pombase/FASTA/pep.fa.gz -O ${TEMP_DIR}/pep.fa.gz
+	@#$(ZIP) -c ${TEMP_DIR}/pep.fa.gz > ${DATA_DIR}/pompep.txt
+	@## GO ID
+	@#$(WGET) -q http://www.geneontology.org/doc/GO.terms_ids_obs -O ${DATA_DIR}/GO.terms_ids_obs
+
 
