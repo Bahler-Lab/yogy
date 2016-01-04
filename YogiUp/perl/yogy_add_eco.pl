@@ -3,7 +3,8 @@
 use strict;
 use DBI;
 
-my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','128.40.79.33','3306','','yogyrw','yogyex');
+my ($file, $MYSQL, $DATABASE, $HOST, $PORT, $USER, $PASSWD) = @ARGV;
+my $dbh = connect_to_DB($MYSQL, $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
 
 
 # Go to http://ecogene.org/DatabaseTable.php
@@ -18,8 +19,6 @@ my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','128.40.79.33','3306','','yogyr
 
 # Download the file and rename it 'EcoData.txt'
 
-
-my $file = 'EcoData.txt';
 
 open(FILE, $file)
     or die "couldn't open file $file: $!";

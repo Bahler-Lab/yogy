@@ -9,6 +9,11 @@ use Data::Dumper;
 use vars qw(%species_tax_hash %species_tax_hash_rev2);
 #open (OUT,">trial.txt");
 
+my ($MYSQL, $DATABASE, $HOST, $PORT, $USER, $PASSWD) = @ARGV;
+my $dbh = connect_to_DB($MYSQL, $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
+
+
+
 %species_tax_hash = (3702   => '10',
                      6239   => '20',
                      7227   => '30',
@@ -66,7 +71,6 @@ use vars qw(%species_tax_hash %species_tax_hash_rev2);
                           270 => '284590');
 
 
-my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','128.40.79.33','3306','','yogyrw','yogyex');
 
 
 #test_query($dbh);

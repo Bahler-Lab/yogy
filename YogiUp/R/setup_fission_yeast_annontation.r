@@ -103,7 +103,7 @@ get.new.table<-function(){
 
 
 #' create fission table
-create.fission.yeats.table<-function(new_table){
+create.fission.yeast.table<-function(new_table){
     nrow<-length(new_table[[1]])
     fission_table<-data.frame("systematic_name"       = new_table[["primary_name"]], 
                               "ec_number"             = rep("", nrow),
@@ -130,8 +130,9 @@ create.fission.yeats.table<-function(new_table){
 #--------------------------------
 # Main
 #--------------------------------
+cat("creating fission yeast annoation: -> data/Fission_yeas_annotations.txt\n")
 get.unique.from.rawtables()
 new_table<-get.new.table()
-fission_table<-create.fission.yeats.table(new_table)
+fission_table<-create.fission.yeast.table(new_table)
 write.table(fission_table, "data/Fission_yeas_annotations.txt", 
             quote=FALSE, sep="\t", row.name=FALSE, col.name=FALSE)

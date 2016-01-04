@@ -16,23 +16,39 @@ MYSQL=mysql
 WGET=wget
 
 DONE="printf \e[0;32m[done]\e[0m\n"
+FAILED="printf \e[0;31m[FAILED]\e[0m\n"
 
-set -e
+#set -e
+
+DOWNLOAD_TAG=1 #global variable - indicates download status
+
+function error_exit
+{
+    if [ "$?" -ne "0" ]; then
+        $FAILED 1>&2
+        exit 1
+    else
+        $DONE
+    fi
+}
+
 
 function create_sql_table {
-    printf "creating new database ... "
-    connect_sql="$MYSQL -h $HOSTNAME -P $PORT -u $USERNAME -p$PASSWORD"
-    $connect_sql -e "drop database $DATABASE"
-    $connect_sql -e "create database $DATABASE"
-    $connect_sql $DATABASE < create_yogy.sql
-    $DONE
+printf "creating new database ... "
+connect_sql="$MYSQL -h $HOSTNAME -P $PORT -u $USERNAME -p$PASSWORD"
+$connect_sql -e "drop database $DATABASE"
+$connect_sql -e "create database $DATABASE"
+error_exit $($connect_sql $DATABASE < create_yogy.sql)
 }
+
+
 
 #-------------------------
 # param1: filename
 # param2: links
 #-------------------------
-function download_data() {
+function download_data() 
+{
     declare -a filenames=("${!1}")
     declare -a links=("${!2}")
 
@@ -50,33 +66,129 @@ function download_data() {
         fi
 
         printf "downloading $name_ ... "
-        
+
         if [ $monthdiff -gt 3 ]; then
-            wget -q $link_ -O ${TEMP_DIR}/$name_
-            if [ $link_ == *.gz ]; 
+            error_exit $(wget -q $link_ -O ${TEMP_DIR}/$name_)
+            if [[ "$link_" == *.gz ]]; 
             then
                 gunzip -c ${TEMP_DIR}/$name_ > ${DATA_DIR}/$name_
             else
                 cp ${TEMP_DIR}/$name_  ${DATA_DIR}/$name_
             fi
-            $DONE
-        else
+
+            if [[ "$3" == "PARSE_UNIPROT" ]]; then
+                printf "parsing uniprot ... "
+                error_exit $(perl ${PERL_DIR}/yogy_uni_parse.pl  ${DATA_DIR}/uniprot_sprot.dat > ${TEMP_DIR}/uniprot_sprot.temp)
+                mv ${TEMP_DIR}/uniprot_sprot.temp ${DATA_DIR}/uniprot_sprot.dat
+            fi
+ 
+       else
             printf "\e[0;33m[No Need to Change]\e[0m: last update -> $(date -r ${DATA_DIR}/$name_ +%y-%m-%d)\n"
         fi
     done
 }
 
 
+
+function yogy_add_table() 
+{
+    printf "Adding table $1 ... "
+    error_exit $(perl ${PERL_DIR}/$2 ${DATA_DIR}/$1 $MYSQL $DATABASE $HOSTNAME\
+        $PORT $USERNAME $PASSWORD)
+
+}
+
+# search for prefix pattern
+function yogy_add_multiple_table
+{
+    declare -a filenames=("${!1}")
+    for i in "${filenames[@]}"
+    do
+        if [[ $i == $2* ]]; then
+            yogy_add_table $i $3
+        fi
+    done
+}
+
+
+
+function yogy_init_populate
+{
+    echo '--------------------'
+    printf "YOGY populate: \n"
+    echo "--------------------"
+    Rscript R/setup_sdg.r
+    Rscript R/setup_fission_yeast_annontation.r
+    Rscript R/setup_gp2swiss.r
+    printf "running yogy update script (yogy_populate) ... "
+    error_exit $(perl ${PERL_DIR}/update_database.pl $HOSTNAME $PORT $DATABASE $USERNAME $PASSWORD)
+}
+
+
+
 source data_links.sh #load data
 create_sql_table
 
+download_data download_name[@] download_link[@]
+download_data download_uniprot_name[@] download_uniprot_link[@] 'PARSE_UNIPROT'
 
-download_data  download_name[@] download_link[@]
-##--------------------------
-#echo "Initial population of data"
-##--------------------------
-##perl ${PERL_DIR}/update_database.pl $HOSTNAME $PORT $DATABASE $USERNAME $PASSWORD 
-#
+#yogy_init_populate
+#yogy_add_table all_orthomcl.out yogy_add_orthomcl_cluster.pl # add orthomcl clusters
+#yogy_add_table BAE_geneid_anno yogy_add_orthomcl_lookup.pl # add orthomcl lookup
+#yogy_add_table GO.terms_ids_obs yogy_add_go_terms.pl # add go terms
+#yogy_add_multiple_table download_name[@] 'gene_association.' 'yogy_add_go_assocs.pl'
+#yogy_add_table 'goa_uniprot_noiea.gene_association' 'yogy_add_go_assocs_uni.pl'
+#yogy_add_multiple_table download_name[@] 'ipi.' 'yogy_add_ipi_lookup.pl'
+#yogy_add_table 'gene2accession' 'yogy_add_gi_lookup.pl'
+
+yogy_add_table 'uniprot_sprot.dat' 'yogy_add_uniprot_lookup.pl'
+yogy_add_table 'uniprot_trembl' 'yogy_add_uniprot_lookup.pl'
+yogy_add_table 'EcoData.txt' 'yogy_add_eco.pl' # data download manually
+
+printf 'executing find uniprot ... '
+error_exit perl {$PERL_DIR}/yogy_find_uniprot_ids.pl $MYSQL $DATABASE $HOSTNAME\
+        $PORT $USERNAME $PASSWORD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# INPARANOID TOO BIG
 ##--------------------------
 #echo "Adding Inparanoid - skip"
 ##--------------------------
@@ -86,33 +198,8 @@ download_data  download_name[@] download_link[@]
 ##do
 ##    echo ${paranoid_path}/${paranoid_file[i]}
 ##    perl ${PERL_DIR}/yogy_add_inp_terms.pl ${paranoid_path}/${paranoid_file[i]}\
-##        $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
+    ##        $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
 ##    printf '\r           \r'$i/${#paranoid_file[@]} ,  
 ##done
 #
-##--------------------------
-#echo "Addding OrthoMCL clusters"
-##--------------------------
-#perl ${PERL_DIR}/yogy_add_orthomcl_cluster.pl ${DATA_DIR}/all_orthomcl.out\
-#    $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
-#
-##--------------------------
-#echo "Addding OrthoMCL Lookup names"
-##--------------------------
-#perl ${PERL_DIR}/yogy_add_orthomcl_lookup.pl ${DATA_DIR}/BAE_geneid_anno\
-#    $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
-#
-##--------------------------
-#echo "Adding GO terms"
-##--------------------------
-#perl ${PERL_DIR}/yogy_add_go_terms.pl ${DATA_DIR}/GO.terms_ids_obs\
-#    $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
-#
-##--------------------------
-#echo "Adding GO terms"
-##--------------------------
-#
-
-
-
 

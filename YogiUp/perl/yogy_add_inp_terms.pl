@@ -6,12 +6,6 @@ use DBI;
 
 
 my ($file, $MYSQL, $DATABASE, $HOST, $PORT, $USER, $PASSWD) = @ARGV;
-#if (not defined $MYSQL or not defined $DATABASE
-#    or not defined $HOST or not defined $PORT
-#    or not defined $USER or not defined $PASSWD){
-#  die "[ERROR]: 
-#  wrong arguments! [file, mysql, database, host, port, user, passwd]"
-#}
 my $dbh = connect_to_DB($MYSQL, $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
 
 open(FILE, $file)
