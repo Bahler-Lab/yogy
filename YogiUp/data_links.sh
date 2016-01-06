@@ -53,10 +53,13 @@ for (( i=0; i<$((${#download_table[@]}/2)); i++ ))
 do
     download_name[$i]=${download_table[$(($i*2))]}
     download_link[$i]=${download_table[$(($i*2+1))]}
+done
 
+
+for (( i=0; i<$((${#download_uniprot_table[@]}/2)); i++ ))
+do
     download_uniprot_name[$i]=${download_uniprot_table[$(($i*2))]}
     download_uniprot_link[$i]=${download_uniprot_table[$(($i*2+1))]}
-
 done
 
 
