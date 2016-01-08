@@ -61,5 +61,3 @@ do
     download_uniprot_name[$i]=${download_uniprot_table[$(($i*2))]}
     download_uniprot_link[$i]=${download_uniprot_table[$(($i*2+1))]}
 done
-
-
