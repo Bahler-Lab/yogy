@@ -40,7 +40,7 @@ create_populate_table<-function(table){
 outfile<-"data/registry.genenames.tab"
 location<-"temp/SGD_features.tab"
 
-cat("creating gene registry table from (SGD) from:", location, "... ")
+cat("generating (SGD) from:", location, "... \n")
 
 header<-c("primary_SGDID", "feature_type","feature_qualifier","feature_name",
           "standard_gene_name","alias","parent_feature_name","secondary_SGDID",
@@ -53,4 +53,3 @@ sdg_table<-create_populate_table(registry_table)
 write.table(sdg_table, outfile, quote=FALSE, sep="\t", row.name=FALSE, col.name=FALSE)
 
 save(sdg_table, file="temp/sdg_table.Rdata")
-cat("[done]\n")

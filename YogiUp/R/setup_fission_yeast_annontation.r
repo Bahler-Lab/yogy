@@ -130,7 +130,7 @@ create.fission.yeast.table<-function(new_table){
 #--------------------------------
 # Main
 #--------------------------------
-cat("creating fission yeast annoation: -> data/Fission_yeas_annotations.txt\n")
+cat("generating fission yeast annoation ... \n")
 get.unique.from.rawtables()
 new_table<-get.new.table()
 fission_table<-create.fission.yeast.table(new_table)
