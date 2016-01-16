@@ -33,7 +33,6 @@ download_table=(
 "BAE_geneid_anno"               "http://www.orthomcl.org/common/downloads/1.0/BAE_geneid_anno"
 "all_orthomcl.out"              "http://www.orthomcl.org/common/downloads/1.0/all_orthomcl.out"
 "gene2accession"                "ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/gene2accession.gz"
-"uniprot_sprot.dat"             "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz"
 "ipi.ARATH.xrefs"               "ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/ipi.ARATH.xrefs.gz"
 "ipi.BOVIN.xrefs"               "ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/ipi.BOVIN.xrefs.gz"
 "ipi.CHICK.xrefs"               "ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/ipi.CHICK.xrefs.gz"
@@ -41,11 +40,11 @@ download_table=(
 "ipi.MOUSE.xrefs"               "ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/ipi.MOUSE.xrefs.gz"
 "ipi.RAT.xrefs"                 "ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/ipi.RAT.xrefs.gz"
 )
-
+#wrong!
 #"ipi.BRARE.xrefs"               "ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/ipi.BRARE.xrefs"
 download_uniprot_table=(
 "uniprot_sprot.dat"             "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz"
-"uniprot_trebl"                 "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"
+"uniprot_trebl.dat"                 "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"
 )
 
 
