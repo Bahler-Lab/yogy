@@ -2,23 +2,6 @@
 # Commands to make the MySQL tables.
 
 # Only need to drop if the database is not new!
-PERL_DIR=perl
-DATA_DIR=data
-TEMP_DIR=temp
-
-DATABASE=S_pombe_YOGY
-HOSTNAME=localhost
-USERNAME=yogyrw
-PASSWORD=yogyex
-PORT=3306
-MYSQL=mysql
-
-WGET=wget
-
-DONE="printf \e[0;32m[done]\e[0m\n"
-FAILED="printf \e[0;31m[FAILED]\e[0m\n"
-
-DOWNLOAD_TAG=1 #global variable - indicates download status
 
 function error_exit
 {
@@ -111,7 +94,7 @@ function uniprot_parse()
   fi
   
   if [ $monthdiff -gt 3 ]; then
-    printf "parsing uniprot ... "
+    printf "parsing uniprot %-35s " 
     error_exit $(perl ${PERL_DIR}/yogy_uni_parse.pl  ${DATA_DIR}/$1.dat > ${DATA_DIR}/$1.txt)
   fi
 }
@@ -128,13 +111,16 @@ function yogy_init_populate
 }
 
 
-source data_links.sh #load data
+source settings.sh #load data
+printf '\n--------------------\n'
+printf 'Data Preparation'
+printf '\n--------------------\n'
 download_data download_name[@] download_link[@]
 download_data download_uniprot_name[@] download_uniprot_link[@] 'PARSE_UNIPROT'
-
-echo '--------------------'
-printf "YOGY populate: \n"
-echo "--------------------"
+./download_inparanoid.sh
+printf "\n--------------------\n"
+printf "Update the database  $DATABASE"
+printf "\n--------------------\n"
 create_sql_table
 #yogy_init_populate
 
@@ -146,9 +132,9 @@ create_sql_table
 #yogy_add_multiple_table download_name[@] 'ipi.' 'yogy_add_ipi_lookup.pl'
 #yogy_add_table 'gene2accession' 'yogy_add_gi_lookup.pl'
 
-uniprot_parse 'uniprot_sprot'
-yogy_add_table 'uniprot_sprot.txt' 'yogy_add_uniprot_lookup.pl'
-uniprot_parse 'uniprot_trebl'
+#uniprot_parse 'uniprot_sprot'
+#yogy_add_table 'uniprot_sprot.txt' 'yogy_add_uniprot_lookup.pl'
+#uniprot_parse 'uniprot_trebl'
 #yogy_add_table 'uniprot_trebl' 'yogy_add_uniprot_lookup.pl'
 #yogy_add_table 'EcoData.txt' 'yogy_add_eco.pl' # data download manually
 
@@ -167,6 +153,6 @@ error_exit perl {$PERL_DIR}/yogy_find_uniprot_ids.pl $MYSQL $DATABASE $HOSTNAME\
 #do
 #    echo ${paranoid_path}/${paranoid_file[i]}
 #    perl ${PERL_DIR}/yogy_add_inp_terms.pl ${paranoid_path}/${paranoid_file[i]}\
-  #         $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
+    #         $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
 #    printf '\r           \r'$i/${#paranoid_file[@]} ,  
 #done

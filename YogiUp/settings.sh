@@ -1,5 +1,20 @@
 #!/bin/bash
+#------------------------------------------------- settings begin
+PERL_DIR=perl
+DATA_DIR=data
+TEMP_DIR=temp
 
+DATABASE=yogy_test
+HOSTNAME=localhost
+USERNAME=yogyrw
+PASSWORD=yogyex
+PORT=3306
+MYSQL=mysql
+
+WGET=wget
+
+DONE="printf \e[0;32m[done]\e[0m\n"
+FAILED="printf \e[0;31m[FAILED]\e[0m\n"
 
 download_table=(
 "GI_numbers.txt"                "ftp://ftp.ncbi.nih.gov/pub/COG/KOG/kyva=gb"
@@ -44,9 +59,11 @@ download_table=(
 #"ipi.BRARE.xrefs"               "ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/ipi.BRARE.xrefs"
 download_uniprot_table=(
 "uniprot_sprot.dat"             "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz"
-"uniprot_trebl.dat"                 "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"
+#"uniprot_trebl.dat"             "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"
 )
 
+inparnoid_link="http://inparanoid.sbc.su.se/download/8.0_current/Orthologs_other_formats/"
+#------------------------------------------------- settings end
 
 for (( i=0; i<$((${#download_table[@]}/2)); i++ ))
 do
