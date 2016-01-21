@@ -4,7 +4,7 @@ PERL_DIR=perl
 DATA_DIR=data
 TEMP_DIR=temp
 
-DATABASE=yogy_test
+DATABASE=yogy_current
 HOSTNAME=localhost
 USERNAME=yogyrw
 PASSWORD=yogyex
@@ -59,7 +59,7 @@ download_table=(
 #"ipi.BRARE.xrefs"               "ftp://ftp.ebi.ac.uk/pub/databases/IPI/last_release/current/ipi.BRARE.xrefs"
 download_uniprot_table=(
 "uniprot_sprot.dat"             "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz"
-#"uniprot_trebl.dat"             "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"
+"uniprot_trebl.dat"             "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"
 )
 
 inparnoid_link="http://inparanoid.sbc.su.se/download/8.0_current/Orthologs_other_formats/"

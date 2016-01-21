@@ -57,7 +57,4 @@ else
     printf "\e[0;33m[is the latest: %s]\e[0m\n" "$(cat $INPAR_DIR/$DATE_FILE)"
 fi
 
-extract_inparanoid $INPAR_DIR $DATA_DIR/inparanoid 1
-
-
-
+extract_inparanoid $INPAR_DIR $DATA_DIR/inparanoid $update_tag

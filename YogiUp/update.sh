@@ -122,37 +122,35 @@ printf "\n--------------------\n"
 printf "Update the database  $DATABASE"
 printf "\n--------------------\n"
 create_sql_table
-#yogy_init_populate
+yogy_init_populate
 
-#yogy_add_table all_orthomcl.out yogy_add_orthomcl_cluster.pl # add orthomcl clusters
-#yogy_add_table BAE_geneid_anno yogy_add_orthomcl_lookup.pl # add orthomcl lookup
-#yogy_add_table GO.terms_ids_obs yogy_add_go_terms.pl # add go terms
-#yogy_add_multiple_table download_name[@] 'gene_association.' 'yogy_add_go_assocs.pl'
-#yogy_add_table 'goa_uniprot_noiea.gene_association' 'yogy_add_go_assocs_uni.pl'
-#yogy_add_multiple_table download_name[@] 'ipi.' 'yogy_add_ipi_lookup.pl'
-#yogy_add_table 'gene2accession' 'yogy_add_gi_lookup.pl'
+yogy_add_table all_orthomcl.out yogy_add_orthomcl_cluster.pl # add orthomcl clusters
+yogy_add_table BAE_geneid_anno yogy_add_orthomcl_lookup.pl # add orthomcl lookup
+yogy_add_table GO.terms_ids_obs yogy_add_go_terms.pl # add go terms
+yogy_add_multiple_table download_name[@] 'gene_association.' 'yogy_add_go_assocs.pl'
+yogy_add_table 'goa_uniprot_noiea.gene_association' 'yogy_add_go_assocs_uni.pl'
+yogy_add_multiple_table download_name[@] 'ipi.' 'yogy_add_ipi_lookup.pl'
+yogy_add_table 'gene2accession' 'yogy_add_gi_lookup.pl'
 
-#uniprot_parse 'uniprot_sprot'
-#yogy_add_table 'uniprot_sprot.txt' 'yogy_add_uniprot_lookup.pl'
-#uniprot_parse 'uniprot_trebl'
-#yogy_add_table 'uniprot_trebl' 'yogy_add_uniprot_lookup.pl'
-#yogy_add_table 'EcoData.txt' 'yogy_add_eco.pl' # data download manually
+uniprot_parse 'uniprot_sprot'
+yogy_add_table 'uniprot_sprot.txt' 'yogy_add_uniprot_lookup.pl'
+uniprot_parse 'uniprot_trebl'
+yogy_add_table 'uniprot_trebl' 'yogy_add_uniprot_lookup.pl'
+yogy_add_table 'EcoData.txt' 'yogy_add_eco.pl' # data download manually
 
 printf 'executing find uniprot ... '
 error_exit perl {$PERL_DIR}/yogy_find_uniprot_ids.pl $MYSQL $DATABASE $HOSTNAME\
   $PORT $USERNAME $PASSWORD
 
 
-## INPARANOID TOO BIG
-##--------------------------
-#echo "Adding Inparanoid - skip"
-##--------------------------
-#paranoid_path='data/inparanoid'
-#paranoid_file=($(ls $paranoid_path))
-#for(( i=0; i<${#paranoid_file[@]}; i++ ))
-#do
-#    echo ${paranoid_path}/${paranoid_file[i]}
-#    perl ${PERL_DIR}/yogy_add_inp_terms.pl ${paranoid_path}/${paranoid_file[i]}\
-    #         $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
-#    printf '\r           \r'$i/${#paranoid_file[@]} ,  
-#done
+#--------------------------
+echo "Adding Inparanoid "
+#--------------------------
+paranoid_path='data/inparanoid'
+paranoid_file=($(ls $paranoid_path))
+for(( i=0; i<${#paranoid_file[@]}; i++ ))
+do
+    perl ${PERL_DIR}/yogy_add_inp_terms-old.pl ${paranoid_path}/${paranoid_file[i]}\
+            $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
+    printf '\r           \r'$i/${#paranoid_file[@]} ,
+done
