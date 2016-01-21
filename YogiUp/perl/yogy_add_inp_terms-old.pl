@@ -4,9 +4,9 @@ use strict;
 use Data::Dumper;
 use DBI;
 
-my $file = shift;
+my ($file, $MYSQL, $DATABASE, $HOST, $PORT, $USER, $PASSWD) = @ARGV;
+my $dbh = connect_to_DB($MYSQL, $DATABASE, $HOST, $PORT, '', $USER, $PASSWD);
 
-my $dbh = connect_to_DB('mysql','S_pombe_YOGY_3','localhost','3306','','yogyrw','yogyex');
 
 
 open(FILE, $file)
@@ -23,8 +23,8 @@ while (<FILE>) {
 
     my @tmp = split /\t/;
 
-#    insert_inparanoid_member_rows($temp[1], $tmp[0], $tmp[1], $tmp[2], $tmp[3], $tmp[4]);
-           print "$temp[1]\t $tmp[0]\t $tmp[1]\t $tmp[2]\t $tmp[3]\t $tmp[4]\n";
+    insert_inparanoid_member_rows($temp[1], $tmp[0], $tmp[1], $tmp[2], $tmp[3], $tmp[4]);
+#           print "$temp[1]\t $tmp[0]\t $tmp[1]\t $tmp[2]\t $tmp[3]\t $tmp[4]\n";
 }
 
 close(FILE);
@@ -65,7 +65,7 @@ sub insert_inparanoid_member_rows {
 
     unless ($sth_inparanoid) {
 
-        my $string = qq(INSERT INTO inparanoid_member
+        my $string = qq(INSERT IGNORE INTO inparanoid_member
                         (organism_pair, cluster_nr, main_ortholog_score, organism, inparalog_score, uniprot_id)
                         VALUES (?, ?, ?, ?, ?, ?) );
 
