@@ -62,7 +62,16 @@ download_uniprot_table=(
 "uniprot_trebl.dat"             "ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz"
 )
 
-inparnoid_link="http://inparanoid.sbc.su.se/download/8.0_current/Orthologs_other_formats/"
+inparanoid_link="http://inparanoid.sbc.su.se/download/8.0_current/Orthologs_other_formats/"
+
+
+inparanoid_species=("A.thaliana" "C.elegans" "D.discoideum" "D.melanogaster"\
+    "E.coli" "H.sapiens" "M.musculus" "P.falciparum" "R.norvegicus"\
+    "S.cerevisiae" "S.pombe")
+
+
+
+
 #------------------------------------------------- settings end
 
 for (( i=0; i<$((${#download_table[@]}/2)); i++ ))

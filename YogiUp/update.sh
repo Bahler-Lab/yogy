@@ -118,6 +118,8 @@ printf '\n--------------------\n'
 download_data download_name[@] download_link[@]
 download_data download_uniprot_name[@] download_uniprot_link[@] 'PARSE_UNIPROT'
 ./download_inparanoid.sh
+
+
 printf "\n--------------------\n"
 printf "Update the database  $DATABASE"
 printf "\n--------------------\n"
@@ -132,20 +134,8 @@ yogy_add_table 'goa_uniprot_noiea.gene_association' 'yogy_add_go_assocs_uni.pl'
 yogy_add_multiple_table download_name[@] 'ipi.' 'yogy_add_ipi_lookup.pl'
 yogy_add_table 'gene2accession' 'yogy_add_gi_lookup.pl'
 
-uniprot_parse 'uniprot_sprot'
-yogy_add_table 'uniprot_sprot.txt' 'yogy_add_uniprot_lookup.pl'
-uniprot_parse 'uniprot_trebl'
-yogy_add_table 'uniprot_trebl' 'yogy_add_uniprot_lookup.pl'
-yogy_add_table 'EcoData.txt' 'yogy_add_eco.pl' # data download manually
 
-printf 'executing find uniprot ... '
-error_exit perl {$PERL_DIR}/yogy_find_uniprot_ids.pl $MYSQL $DATABASE $HOSTNAME\
-  $PORT $USERNAME $PASSWORD
-
-
-#--------------------------
 echo "Adding Inparanoid "
-#--------------------------
 paranoid_path='data/inparanoid'
 paranoid_file=($(ls $paranoid_path))
 for(( i=0; i<${#paranoid_file[@]}; i++ ))
@@ -154,3 +144,22 @@ do
             $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
     printf '\r           \r'$i/${#paranoid_file[@]} ,
 done
+
+
+uniprot_parse 'uniprot_sprot'
+yogy_add_table 'uniprot_sprot.txt' 'yogy_add_uniprot_lookup.pl'
+uniprot_parse 'uniprot_trebl'
+yogy_add_table 'uniprot_trebl.txt' 'yogy_add_uniprot_lookup.pl'
+yogy_add_table 'EcoData.txt' 'yogy_add_eco.pl' # data download manually
+
+printf 'executing find uniprot ... '
+perl $PERL_DIR/yogy_find_uniprot_ids.pl $MYSQL $DATABASE $HOSTNAME $PORT $USERNAME $PASSWORD
+
+
+
+
+
+
+
+
+

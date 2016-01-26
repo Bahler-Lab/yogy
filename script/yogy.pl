@@ -28,7 +28,7 @@ $ENV{PATH} = '';
 
 BEGIN {
   $|=1;
-   print "Content-type: text/html\n\n";
+#   print "Content-type: text/html\n\n";
    use CGI::Carp('fatalsToBrowser');
 }
 # TODO: less global variables!
@@ -652,7 +652,7 @@ print qq (<html xmlns="http://www.w3.org/1999/xhtml">
 
         my $go_final = $cgi->param('go_final');
 
-        my $dbh = connect_to_DB('mysql', 'S_pombe_YOGY_3', 'localhost',
+        my $dbh = connect_to_DB('mysql', 'yogy_current', 'localhost',
                                 '3306', '', 'yogyrw', 'yogyex');
 
         #test_query($dbh);
